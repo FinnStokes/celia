@@ -1,33 +1,76 @@
 
 local context = gauge.input.context.new({active = true})
 context.map = function (raw_in, map_in)
-  if raw_in.key.down[" "] then
+  if raw_in.key.pressed["up"] then
     map_in.actions["jump"] = true
+  end
+
+  -- Left Key
+  if raw_in.key.pressed["left"] then
+    if raw_in.key.down["right"] then
+      map_in.actions["stop"] = true
+    else
+      map_in.actions["left"] = true
+    end
+  end
+  if raw_in.key.released["left"] then
+    if raw_in.key.down["right"] then
+      map_in.actions["right"] = true
+    else
+      map_in.actions["stop"] = true
+    end
+  end
+
+  -- Right Key
+  if raw_in.key.pressed["right"] then
+    if raw_in.key.down["left"] then
+      map_in.actions["stop"] = true
+    else
+      map_in.actions["right"] = true
+    end
+  end
+  if raw_in.key.released["right"] then
+    if raw_in.key.down["left"] then
+      map_in.actions["left"] = true
+    else
+      map_in.actions["stop"] = true
+    end
   end
   return map_in
 end
 
 
-local dude = gauge.entity.new{
+local player = gauge.entity.new{
   position = { x = 200, y = 200 },
-  velocity = { x = 100, y = 0 },
-  acceleration = { x = 0, y = 0},
+  velocity = { x = 0, y = 0 },
+  acceleration = { x = 0, y = 300},
 }
-dude.lifetime = 0
+player.lifetime = 0
 
-local update = dude.update
-dude.update = function (dt)
+local update = player.update
+player.update = function (dt)
   update(dt)
-  dude.lifetime = dude.lifetime + dt
+  player.lifetime = player.lifetime + dt
 end
 
 
 gauge.event.subscribe("input",
   function (input)
     if input.actions.jump then
-      -- do something
-      dude.position({x = 100, y = 100})
+      if not player.falling then
+        player.velocity({y = -300})
+        player.acceleration({y = 300})
+        player.falling = true
+      end
+    end
+    if input.actions.left then
+      player.velocity({x = -100})
+    end
+    if input.actions.right then
+      player.velocity({x = 100})
+    end
+    if input.actions.stop then
+      player.velocity({x = 0})
     end
   end
 )
-
