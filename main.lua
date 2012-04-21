@@ -51,6 +51,18 @@ local update = player.update
 player.update = function (dt)
   update(dt)
   player.lifetime = player.lifetime + dt
+  
+  -- camera
+  local camera = gauge.state.get().camera
+  local player = player.position()
+  local dx = camera.position.x - player.x
+  local dy = camera.position.y - player.y
+  local distance = math.sqrt((dx * dx) + (dy * dy))
+  if math.abs(dx) > camera.max_distance or
+      math.abs(dy) > camera.max_distance then
+    camera.position.x = camera.position.x - (dx / camera.speed)
+    camera.position.y = camera.position.y - (dy / camera.speed)
+  end
 end
 
 
