@@ -1,3 +1,9 @@
+local walk_v = 100
+local jump_height = 75
+local jump_length = 96
+
+local jump_v = 4*walk_v*jump_height/jump_length
+local g = jump_v*jump_v/(2*jump_height)
 
 local context = gauge.input.context.new({active = true})
 context.map = function (raw_in, map_in)
@@ -43,7 +49,7 @@ end
 local player = gauge.entity.new{
   position = { x = 200, y = 200 },
   velocity = { x = 0, y = 0 },
-  acceleration = { x = 0, y = 300},
+  acceleration = { x = 0, y = g},
 }
 player.lifetime = 0
 
@@ -70,15 +76,15 @@ gauge.event.subscribe("input",
   function (input)
     if input.actions.jump then
       if not player.falling then
-        player.velocity({y = -300})
+        player.velocity({y = -jump_v})
         player.falling = true
       end
     end
     if input.actions.left then
-      player.velocity({x = -100})
+      player.velocity({x = -walk_v})
     end
     if input.actions.right then
-      player.velocity({x = 100})
+      player.velocity({x = walk_v})
     end
     if input.actions.stop then
       player.velocity({x = 0})
