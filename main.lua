@@ -36,6 +36,15 @@ context.map = function (raw_in, map_in)
       map_in.actions["stop"] = true
     end
   end
+  
+  -- Map Scale
+  if raw_in.key.pressed["e"] then
+    map_in.actions["grow"] = true
+  end
+  if raw_in.key.pressed["q"] then
+    map_in.actions["shrink"] = true
+  end
+  
   return map_in
 end
 
@@ -58,10 +67,10 @@ player.update = function (dt)
   local dx = camera.position.x - player.x
   local dy = camera.position.y - player.y
   if math.abs(dx) > camera.max_distance then
-    camera.position.x = camera.position.x - (dx / camera.speed)
+    camera.position.x = camera.position.x - (dx * camera.speed)
   end
   if math.abs(dy) > camera.max_distance then
-    camera.position.y = camera.position.y - (dy / camera.speed)
+    camera.position.y = camera.position.y - (dy * camera.speed)
   end
 end
 
@@ -82,6 +91,29 @@ gauge.event.subscribe("input",
     end
     if input.actions.stop then
       player.velocity({x = 0})
+    end
+  end
+)
+
+gauge.event.subscribe("input",
+  function (input)
+    if input.actions.grow then
+      gauge.state.get().map.scale(0.5)
+      local x = ((player.position().x + (player.width() / 2)) * 0.5) - (player.width() / 2)
+      local y = ((player.position().y + player.height()) * 0.5) - player.height()
+      player.position({x = x, y = y})
+      local camera = gauge.state.get().camera
+      camera.position.x = x
+      camera.position.y = y
+    end
+    if input.actions.shrink then
+      gauge.state.get().map.scale(2)
+      local x = ((player.position().x + (player.width() / 2)) * 2) - (player.width() / 2)
+      local y = ((player.position().y + player.height()) * 2) - player.height()
+      player.position({x = x, y = y})
+      local camera = gauge.state.get().camera
+      camera.position.x = x
+      camera.position.y = y
     end
   end
 )
