@@ -59,7 +59,6 @@ gauge.event.subscribe("input",
     if input.actions.jump then
       if not player.falling then
         player.velocity({y = -300})
-        player.acceleration({y = 300})
         player.falling = true
       end
     end
