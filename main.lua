@@ -57,10 +57,10 @@ player.update = function (dt)
   local player = player.position()
   local dx = camera.position.x - player.x
   local dy = camera.position.y - player.y
-  local distance = math.sqrt((dx * dx) + (dy * dy))
-  if math.abs(dx) > camera.max_distance or
-      math.abs(dy) > camera.max_distance then
+  if math.abs(dx) > camera.max_distance then
     camera.position.x = camera.position.x - (dx / camera.speed)
+  end
+  if math.abs(dy) > camera.max_distance then
     camera.position.y = camera.position.y - (dy / camera.speed)
   end
 end
