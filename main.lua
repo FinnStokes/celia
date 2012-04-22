@@ -82,8 +82,17 @@ gauge.entity.registerType("player", {
     end
     
     -- music
-    littleTheme.volume(gauge.entity.scale)
-    bigTheme.volume(1 - gauge.entity.scale)
+    if gauge.entity.scale > 1/2 then
+      littleTheme.volume(1)
+      bigTheme.volume(0)
+    elseif gauge.entity.scale < 1/4 then
+      littleTheme.volume(0)
+      bigTheme.volume(1)
+    else
+      local s = ((1 / gauge.entity.scale) - 2) / 2
+      littleTheme.volume(1 - s)
+      bigTheme.volume(s)
+    end
   end
 })
 
