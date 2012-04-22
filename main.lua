@@ -55,27 +55,32 @@ context.map = function (raw_in, map_in)
 end
 
 gauge.entity.registerType("player", {
-                            acceleration = { x = 0, y = g },
-                            scales=false,
-                            update = function (object, self, dt)
-                              print("camera")
-                              -- camera
-                              local camera = gauge.state.get().camera
-                              local player = object.position()
-                              local dx = camera.position.x - player.x
-                              local dy = camera.position.y - player.y
-                              if math.abs(dx) > camera.max_distance then
-                                camera.position.x = camera.position.x - (dx * camera.speed)
-                              end
-                              if math.abs(dy) > camera.max_distance then
-                                camera.position.y = camera.position.y - (dy * camera.speed)
-                              end
-                            end
-                                       })
+  acceleration = { x = 0, y = g },
+  scales=false,
+  width=30,
+  height=30,
+  update = function (object, self, dt)
+    -- camera
+    local camera = gauge.state.get().camera
+    local player = object.position()
+    local dx = camera.position.x - player.x
+    local dy = camera.position.y - player.y
+    if math.abs(dx) > camera.max_distance then
+      camera.position.x = camera.position.x - (dx * camera.speed)
+    end
+    if math.abs(dy) > camera.max_distance then
+      camera.position.y = camera.position.y - (dy * camera.speed)
+    end
+  end
+})
 
-gauge.event.notify("loadMap")
+gauge.event.notify("loadMap", {file="test_level.lua"})
 
-local player = gauge.entity.getList({type="player"})[1]
+local spawn = gauge.entity.getList({type="player_spawn"})[1]
+local player = gauge.entity.new({
+  type="player",
+  position=spawn.position({}),
+})
 
 gauge.event.subscribe("input",
   function (input)
