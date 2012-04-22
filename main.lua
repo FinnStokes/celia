@@ -56,6 +56,8 @@ end
 
 local littleTheme = gauge.music.new({file="little.ogg", volume=0, loop=true})
 local bigTheme = gauge.music.new({file="big.ogg", volume=0, loop=true})
+littleTheme.play()
+bigTheme.play()
 
 gauge.entity.registerType("player", {
   acceleration = { x = 0, y = g },
@@ -68,11 +70,15 @@ gauge.entity.registerType("player", {
     local player = object.position()
     local dx = camera.position.x - player.x
     local dy = camera.position.y - player.y
-    if math.abs(dx) > camera.max_distance then
+    if math.abs(dx) > dx * camera.speed then
       camera.position.x = camera.position.x - (dx * camera.speed)
+    else
+      camera.position.x = player.x
     end
-    if math.abs(dy) > camera.max_distance then
+    if math.abs(dy) > dx * camera.speed then
       camera.position.y = camera.position.y - (dy * camera.speed)
+    else
+      camera.position.y = player.y
     end
     
     -- music
