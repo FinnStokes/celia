@@ -54,26 +54,28 @@ context.map = function (raw_in, map_in)
   return map_in
 end
 
-gauge.entity.registerType("character", {acceleration = { x = 0, y = g }})
+gauge.entity.registerType("player", {
+                            acceleration = { x = 0, y = g },
+                            scales=false,
+                            update = function (object, self, dt)
+                              print("camera")
+                              -- camera
+                              local camera = gauge.state.get().camera
+                              local player = object.position()
+                              local dx = camera.position.x - player.x
+                              local dy = camera.position.y - player.y
+                              if math.abs(dx) > camera.max_distance then
+                                camera.position.x = camera.position.x - (dx * camera.speed)
+                              end
+                              if math.abs(dy) > camera.max_distance then
+                                camera.position.y = camera.position.y - (dy * camera.speed)
+                              end
+                            end
+                                       })
 
-local player = gauge.entity.new{
-  type = "character",
-  position = { x = 200, y = 200 },
-  velocity = { x = 0, y = 0 },
-  update = function (object, self, dt)
-    -- camera
-    local camera = gauge.state.get().camera
-    local player = object.position()
-    local dx = camera.position.x - player.x
-    local dy = camera.position.y - player.y
-    if math.abs(dx) > camera.max_distance then
-      camera.position.x = camera.position.x - (dx * camera.speed)
-    end
-    if math.abs(dy) > camera.max_distance then
-      camera.position.y = camera.position.y - (dy * camera.speed)
-    end
-  end
-}
+gauge.event.notify("loadMap")
+
+local player = gauge.entity.getList({type="player"})[1]
 
 gauge.event.subscribe("input",
   function (input)
@@ -99,6 +101,7 @@ gauge.event.subscribe("input",
   function (input)
     if input.actions.grow then
       gauge.state.get().map.scale(0.5)
+      gauge.entity.scale(0.5)
       local x = ((player.position().x + (player.width() / 2)) * 0.5) - (player.width() / 2)
       local y = ((player.position().y + player.height()) * 0.5) - player.height()
       player.position({x = x, y = y})
@@ -108,6 +111,7 @@ gauge.event.subscribe("input",
     end
     if input.actions.shrink then
       gauge.state.get().map.scale(2)
+      gauge.entity.scale(2)
       local x = ((player.position().x + (player.width() / 2)) * 2) - (player.width() / 2)
       local y = ((player.position().y + player.height()) * 2) - player.height()
       player.position({x = x, y = y})
