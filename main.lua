@@ -146,19 +146,6 @@ gauge.event.subscribe("input",
 
 local scale = gauge.entity.scale
 
---[[gauge.event.subscribe("input",
-  function (input)
-    if input.actions.grow then
-      scale = 1/(1/scale + 1)
-      tween(1,gauge.entity,{scale = scale})
-    end
-    if input.actions.shrink then
-      scale = 1/(1/scale - 1)
-      tween(1,gauge.entity,{scale = scale})
-    end
-  end
-)]]
-
 local scaleTween = nil
 
 gauge.event.subscribe("entityCollision",
@@ -225,5 +212,6 @@ gauge.event.subscribe("input", function (input)
       type="player",
       position={x=spawn.position().x, y=spawn.position().y},
     })
+    scale = gauge.entity.scale
   end
 end)
