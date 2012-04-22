@@ -56,7 +56,6 @@ end
 
 gauge.entity.registerType("player", {
   acceleration = { x = 0, y = g },
-  scales=false,
   width=30,
   height=30,
   update = function (object, self, dt)
@@ -79,8 +78,10 @@ gauge.event.notify("loadMap", {file="test_level.lua"})
 local spawn = gauge.entity.getList({type="player_spawn"})[1]
 local player = gauge.entity.new({
   type="player",
-  position=spawn.position({}),
+  position={x=spawn.position().x, y=spawn.position().y},
 })
+player.scale = function(s)
+end
 
 gauge.event.subscribe("input",
   function (input)
@@ -123,6 +124,24 @@ gauge.event.subscribe("input",
       local camera = gauge.state.get().camera
       camera.position.x = x
       camera.position.y = y
+    end
+  end
+)
+
+gauge.event.subscribe("entityCollision",
+  function (entities)
+    if entities[1] == player then
+      if entities[2].type() == "pill" then
+        gauge.state.get().map.scale(0.5)
+        gauge.entity.scale(0.5)
+        local x = ((player.position().x + (player.width() / 2)) * 0.5) - (player.width() / 2)
+        local y = ((player.position().y + player.height()) * 0.5) - player.height()
+        player.position({x = x, y = y})
+        local camera = gauge.state.get().camera
+        camera.position.x = x
+        camera.position.y = y
+        entities[2].delete = true
+      end
     end
   end
 )
