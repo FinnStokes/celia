@@ -58,6 +58,7 @@ gauge.entity.registerType("player", {
   acceleration = { x = 0, y = g },
   width=30,
   height=30,
+  scaled=false,
   update = function (object, self, dt)
     -- camera
     local camera = gauge.state.get().camera
@@ -80,8 +81,6 @@ local player = gauge.entity.new({
   type="player",
   position={x=spawn.position().x, y=spawn.position().y},
 })
-player.scale = function(s)
-end
 
 gauge.event.subscribe("input",
   function (input)
@@ -106,8 +105,9 @@ gauge.event.subscribe("input",
 gauge.event.subscribe("input",
   function (input)
     if input.actions.grow then
-      gauge.state.get().map.scale(0.5)
-      gauge.entity.scale(0.5)
+      --gauge.state.get().map.scale(0.5)
+      --gauge.entity.scale(0.5)
+      gauge.entity.scale = gauge.entity.scale * 0.5
       local x = ((player.position().x + (player.width() / 2)) * 0.5) - (player.width() / 2)
       local y = ((player.position().y + player.height()) * 0.5) - player.height()
       player.position({x = x, y = y})
@@ -116,8 +116,9 @@ gauge.event.subscribe("input",
       camera.position.y = y
     end
     if input.actions.shrink then
-      gauge.state.get().map.scale(2)
-      gauge.entity.scale(2)
+      --gauge.state.get().map.scale(2)
+      --gauge.entity.scale(2)
+      gauge.entity.scale = gauge.entity.scale * 2
       local x = ((player.position().x + (player.width() / 2)) * 2) - (player.width() / 2)
       local y = ((player.position().y + player.height()) * 2) - player.height()
       player.position({x = x, y = y})
@@ -131,11 +132,24 @@ gauge.event.subscribe("input",
 gauge.event.subscribe("entityCollision",
   function (entities)
     if entities[1] == player then
-      if entities[2].type() == "pill" then
-        gauge.state.get().map.scale(0.5)
-        gauge.entity.scale(0.5)
+      if entities[2].type() == "grower" then
+        --gauge.state.get().map.scale(0.5)
+        --gauge.entity.scale(0.5)
+        gauge.entity.scale = gauge.entity.scale * 0.5
         local x = ((player.position().x + (player.width() / 2)) * 0.5) - (player.width() / 2)
         local y = ((player.position().y + player.height()) * 0.5) - player.height()
+        player.position({x = x, y = y})
+        local camera = gauge.state.get().camera
+        camera.position.x = x
+        camera.position.y = y
+        entities[2].delete = true
+      end
+      if entities[2].type() == "shrinker" then
+        --gauge.state.get().map.scale(2)
+        --gauge.entity.scale(2)
+        gauge.entity.scale = gauge.entity.scale * 2
+        local x = ((player.position().x + (player.width() / 2)) * 2) - (player.width() / 2)
+        local y = ((player.position().y + player.height()) * 2) - player.height()
         player.position({x = x, y = y})
         local camera = gauge.state.get().camera
         camera.position.x = x
