@@ -54,6 +54,9 @@ context.map = function (raw_in, map_in)
   return map_in
 end
 
+local littleTheme = gauge.music.new({file="little.ogg", volume=0, loop=true})
+local bigTheme = gauge.music.new({file="big.ogg", volume=0, loop=true})
+
 gauge.entity.registerType("player", {
   acceleration = { x = 0, y = g },
   width=30,
@@ -71,6 +74,10 @@ gauge.entity.registerType("player", {
     if math.abs(dy) > camera.max_distance then
       camera.position.y = camera.position.y - (dy * camera.speed)
     end
+    
+    -- music
+    littleTheme.volume(gauge.entity.scale)
+    bigTheme.volume(1 - gauge.entity.scale)
   end
 })
 
