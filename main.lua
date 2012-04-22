@@ -180,6 +180,16 @@ gauge.event.subscribe("entityCollision",
   end
 )
 
+gauge.event.subscribe("entityStuck",
+  function (entity)
+    if entity == player then
+      tween.stop(scaleTween)
+      scale = 1/(1/scale - 1)
+      scaleTween = tween(0.5, gauge.entity,{scale = scale})
+    end
+  end
+)
+
 local cameraTween = nil
 gauge.event.subscribe("input",
   function (input)
