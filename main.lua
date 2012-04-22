@@ -54,32 +54,26 @@ context.map = function (raw_in, map_in)
   return map_in
 end
 
+gauge.entity.registerType("character", {acceleration = { x = 0, y = g }})
 
 local player = gauge.entity.new{
+  type = "character",
   position = { x = 200, y = 200 },
   velocity = { x = 0, y = 0 },
-  acceleration = { x = 0, y = g},
+  update = function (object, self, dt)
+    -- camera
+    local camera = gauge.state.get().camera
+    local player = object.position()
+    local dx = camera.position.x - player.x
+    local dy = camera.position.y - player.y
+    if math.abs(dx) > camera.max_distance then
+      camera.position.x = camera.position.x - (dx * camera.speed)
+    end
+    if math.abs(dy) > camera.max_distance then
+      camera.position.y = camera.position.y - (dy * camera.speed)
+    end
+  end
 }
-player.lifetime = 0
-
-local update = player.update
-player.update = function (dt)
-  update(dt)
-  player.lifetime = player.lifetime + dt
-  
-  -- camera
-  local camera = gauge.state.get().camera
-  local player = player.position()
-  local dx = camera.position.x - player.x
-  local dy = camera.position.y - player.y
-  if math.abs(dx) > camera.max_distance then
-    camera.position.x = camera.position.x - (dx * camera.speed)
-  end
-  if math.abs(dy) > camera.max_distance then
-    camera.position.y = camera.position.y - (dy * camera.speed)
-  end
-end
-
 
 gauge.event.subscribe("input",
   function (input)
