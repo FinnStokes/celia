@@ -148,14 +148,20 @@ local scale = gauge.entity.scale
 
 local scaleTween = nil
 
+local growing = false
+local endGrow = function()
+  growing = false
+end
+
 gauge.event.subscribe("entityCollision",
   function (entities)
     if entities[1] == player then
       if entities[2].type == "grower" then
         tween.stop(scaleTween)
         scale = 1/(1/scale + 1)
-        scaleTween = tween(1,gauge.entity,{scale = scale})
+        scaleTween = tween(1,gauge.entity,{scale = scale},'linear',endGrow)
         entities[2].delete = true
+        growing = true
       end
       if entities[2].type == "shrinker" then
         tween.stop(scaleTween)
@@ -169,7 +175,7 @@ gauge.event.subscribe("entityCollision",
 
 gauge.event.subscribe("entityStuck",
   function (entity)
-    if entity == player then
+    if entity == player and growing then
       tween.stop(scaleTween)
       scale = 1/(1/scale - 1)
       scaleTween = tween(0.5, gauge.entity,{scale = scale})
@@ -182,7 +188,6 @@ gauge.event.subscribe("input",
   function (input)
     if input.actions.zoomOut then
       gauge.state.get().camera.zoom = true
-      local p = player.position()
       tween.stop(cameraTween)
       cameraTween = tween(1, gauge.state.get().camera,{
         scale = 0.2
@@ -195,7 +200,6 @@ gauge.event.subscribe("input",
   function (input)
     if input.actions.zoomIn then
       gauge.state.get().camera.zoom = false
-      local p = player.position()
       tween.stop(cameraTween)
       cameraTween = tween(1, gauge.state.get().camera,{
         scale = 1
