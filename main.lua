@@ -10,6 +10,18 @@ context.map = function (raw_in, map_in)
   if raw_in.key.pressed["up"] then
     map_in.actions["jump"] = true
   end
+  
+  if raw_in.key.pressed["down"] then
+    map_in.actions["zoomOut"] = true
+  end
+  
+  if raw_in.key.released["down"] then
+    map_in.actions["zoomIn"] = true
+  end
+  
+  if raw_in.key.pressed["r"] then
+    map_in.actions["reset"] = true
+  end
 
   -- Left Key
   if raw_in.key.pressed["left"] then
@@ -67,18 +79,26 @@ gauge.entity.registerType("player", {
   update = function (object, self, dt)
     -- camera
     local camera = gauge.state.get().camera
-    local player = object.position()
-    local dx = camera.position.x - player.x
-    local dy = camera.position.y - player.y
+    local player_x = nil
+    local player_y = nil
+    if camera.zoom then
+      player_x = -object.position().x
+      player_y = -object.position().y
+    else
+      player_x = object.position().x
+      player_y = object.position().y
+    end
+    local dx = camera.position.x - player_x
+    local dy = camera.position.y - player_y
     if math.abs(dx) > dx * camera.speed then
       camera.position.x = camera.position.x - (dx * camera.speed)
     else
-      camera.position.x = player.x
+      camera.position.x = player_x
     end
     if math.abs(dy) > dx * camera.speed then
       camera.position.y = camera.position.y - (dy * camera.speed)
     else
-      camera.position.y = player.y
+      camera.position.y = player_y
     end
     
     -- music
@@ -124,7 +144,7 @@ gauge.event.subscribe("input",
   end
 )
 
-gauge.event.subscribe("input",
+--[[gauge.event.subscribe("input",
   function (input)
     if input.actions.grow then
       tween(1,gauge.entity,{scale = gauge.entity.scale * 0.5})
@@ -133,7 +153,9 @@ gauge.event.subscribe("input",
       tween(1,gauge.entity,{scale = gauge.entity.scale / 0.5})
     end
   end
-)
+)]]
+
+local scaleTween = nil
 
 gauge.event.subscribe("entityCollision",
   function (entities)
@@ -141,7 +163,8 @@ gauge.event.subscribe("entityCollision",
       if entities[2].type() == "grower" then
         --gauge.state.get().map.scale(0.5)
         --gauge.entity.scale(0.5)
-        tween(1,gauge.entity,{scale = gauge.entity.scale * 0.5})
+        tween.stop(scaleTween)
+        scaleTween = tween(1,gauge.entity,{scale = gauge.entity.scale * 0.5})
         -- local x = ((player.position().x + (player.width() / 2)) * 0.5) - (player.width() / 2)
         -- local y = ((player.position().y + player.height()) * 0.5) - player.height()
         -- player.position({x = x, y = y})
@@ -153,7 +176,8 @@ gauge.event.subscribe("entityCollision",
       if entities[2].type() == "shrinker" then
         --gauge.state.get().map.scale(2)
         --gauge.entity.scale(2)
-        tween(1,gauge.entity,{scale = gauge.entity.scale / 0.5})
+        tween.stop(scaleTween)
+        scaleTween = tween(1,gauge.entity,{scale = gauge.entity.scale / 0.5})
         -- local x = ((player.position().x + (player.width() / 2)) * 2) - (player.width() / 2)
         -- local y = ((player.position().y + player.height()) * 2) - player.height()
         -- player.position({x = x, y = y})
@@ -165,3 +189,41 @@ gauge.event.subscribe("entityCollision",
     end
   end
 )
+
+local cameraTween = nil
+gauge.event.subscribe("input",
+  function (input)
+    if input.actions.zoomOut then
+      gauge.state.get().camera.zoom = true
+      local p = player.position()
+      tween.stop(cameraTween)
+      cameraTween = tween(1, gauge.state.get().camera,{
+        scale = 0.2
+      })
+    end
+  end
+)
+
+gauge.event.subscribe("input",
+  function (input)
+    if input.actions.zoomIn then
+      gauge.state.get().camera.zoom = false
+      local p = player.position()
+      tween.stop(cameraTween)
+      cameraTween = tween(1, gauge.state.get().camera,{
+        scale = 1
+      })
+    end
+  end
+)
+
+gauge.event.subscribe("input", function (input)
+  if input.actions.reset then
+    tween.stop(scaleTween)
+    gauge.state.get().map.reset()
+    player = gauge.entity.new({
+      type="player",
+      position={x=spawn.position().x, y=spawn.position().y},
+    })
+  end
+end)
