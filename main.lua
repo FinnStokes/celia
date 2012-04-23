@@ -78,36 +78,44 @@ gauge.entity.registerType("player", {
   scaled=false,
   image=love.graphics.newImage("celia.png"),
   animations = {
-    idleLeft = {
+    idle = {
       framerate = 3,
       frames = 3,
-      flipped = true,
       line = 0
     },
-    idleRight = {
-      framerate = 3,
-      frames = 3,
-      flipped = false,
-      line = 0
-    },
-    walkLeft = {
-      framerate = 15,
+    walk = {
+      framerate = 10,
       frames = 5,
-      flipped = true,
       line = 1
     },
-    walkRight = {
-      framerate = 15,
-      frames = 5,
-      flipped = false,
-      line = 1
+    jump = {
+      framerate = 1,
+      frames = 1,
+      line = 2
+    },
+    falling = {
+      framerate = 2,
+      frames = 4,
+      line = 3
+    },
+    reach = {
+      framerate = 1,
+      frames = 2,
+      line = 4
+    },
+    lookdown = {
+      framerate = 1,
+      frames = 1,
+      line = 5
     }
   },
   frame = 0,
   faceRight = true,
-  animation = "idleRight",
-  setAnimation=function(anim)
-    self.animation = anim
+  animation = "idle",
+  setAnimation=function(object, self, anim, lowPriority)
+    if not lowPriority or self.animation == "idle" then
+      self.animation = anim
+    end
   end,
   chestHeaving = 1,
   render=function(object, self)
@@ -122,7 +130,7 @@ gauge.entity.registerType("player", {
     local position = object.position()
     local scaleFlip = 1
     local originFlip = 0
-    if self.animations[self.animation].flipped then
+    if not self.faceRight then
       scaleFlip = -1
       originFlip = 64
     end
@@ -130,32 +138,37 @@ gauge.entity.registerType("player", {
     scaleFlip, 1, originFlip, 0)
   end,
   update=function(object, self, dt)
-    if self.velocity.x > 1 then
-      self.animation = "walkRight"
+    if self.velocity.y > 1 then
+      self.animation = "falling"
+    elseif self.velocity.y < -1 then
+      self.animation = "jump"
+      if self.chestHeaving < 5 then
+        self.chestHeaving = self.chestHeaving + 2 * dt
+      end
+    elseif self.velocity.x > 1 then
+      self.animation = "walk"
       self.faceRight = true
       if self.chestHeaving < 5 then
         self.chestHeaving = self.chestHeaving + dt
       end
     elseif self.velocity.x < -1 then
-      self.animation = "walkLeft"
+      self.animation = "walk"
       self.faceRight = false
       if self.chestHeaving < 5 then
         self.chestHeaving = self.chestHeaving + dt
       end
     elseif self.faceRight then
-      self.animation = "idleRight"
+      self.animation = "idle"
       if self.chestHeaving > 1 then
         self.chestHeaving = self.chestHeaving - dt
       end
     else
-      self.animation = "idleLeft"
+      self.animation = "idle"
       if self.chestHeaving > 1 then
         self.chestHeaving = self.chestHeaving - dt
       end
     end
-    if self.animation == "idleLeft" then
-      self.animations[self.animation].framerate = 2 * self.chestHeaving
-    elseif self.animation == "idleRight" then
+    if self.animation == "idle" then
       self.animations[self.animation].framerate = 2 * self.chestHeaving
     end
     self.frame = self.frame + dt*self.animations[self.animation].framerate
@@ -219,7 +232,7 @@ local player = gauge.entity.new({
 gauge.event.subscribe("animation",
   function (arg)
     if arg.entity == player then
-      player.setAnimation(arg.animation)
+      player.setAnimation(arg.animation, arg.lowPriority)
     end
   end
 )
@@ -276,8 +289,20 @@ gauge.event.subscribe("entityCollision",
               player.position().x + player.width() <= entities[2].position().x + entities[2].width() and
               player.position().y >= entities[2].position().y and
               player.position().y + player.height() <= entities[2].position().y + entities[2].height() then
-            nextLevel()
+            nextLevel()            
           end
+        elseif 128 < size then
+          gauge.event.notify("animation", {
+            entity = player,
+            animation = "reach",
+            lowPriority = true
+          })
+        elseif 128 > size then
+          gauge.event.notify("animation", {
+            entity = player,
+            animation = "lookdown",
+            lowPriority = true
+          })
         end
       end
     end
