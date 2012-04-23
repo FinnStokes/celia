@@ -256,14 +256,14 @@ end
 gauge.event.subscribe("entityCollision",
   function (entities)
     if entities[1] == player then
-      if entities[2].type == "grower" then
+      if entities[2].type == "grower" and scale > 1 / 5  then
         tween.stop(scaleTween)
         scale = 1/(1/scale + 1)
         scaleTween = tween(1,gauge.entity,{scale = scale},'linear',endGrow)
         entities[2].delete = true
         growing = true
       end
-      if entities[2].type == "shrinker" then
+      if entities[2].type == "shrinker" and scale < 1 then
         tween.stop(scaleTween)
         scale = 1/(1/scale - 1)
         scaleTween = tween(1,gauge.entity,{scale = scale})
