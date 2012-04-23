@@ -92,13 +92,13 @@ gauge.entity.registerType("player", {
     },
     walkLeft = {
       framerate = 15,
-      frames = 6,
+      frames = 5,
       flipped = true,
       line = 1
     },
     walkRight = {
       framerate = 15,
-      frames = 6,
+      frames = 5,
       flipped = false,
       line = 1
     }
