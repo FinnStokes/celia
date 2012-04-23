@@ -116,7 +116,8 @@ gauge.entity.registerType("player", {
     end
     --self.frame = self.frame % self.frames <-- not sure if want
     local sprite = love.graphics.newQuad(64*math.floor(self.frame),
-      128*self.animations[self.animation].line,64,128,384,256)
+      128*self.animations[self.animation].line,64,128,
+      self.image:getWidth(), self.image:getHeight())
     love.graphics.setColor({255,255,255})
     local position = object.position()
     local scaleFlip = 1
