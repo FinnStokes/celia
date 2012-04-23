@@ -55,12 +55,12 @@ context.map = function (raw_in, map_in)
     end
   end
   
-  -- Map Scale
+  -- Map Switch
   if raw_in.key.pressed["e"] then
-    map_in.actions["grow"] = true
+    map_in.actions["nextLevel"] = true
   end
   if raw_in.key.pressed["q"] then
-    map_in.actions["shrink"] = true
+    map_in.actions["previousLevel"] = true
   end
   
   return map_in
@@ -222,6 +222,14 @@ local nextLevel = function ()
   })
 end
 nextLevel()
+local previousLevel = function ()
+  if level > 1 then
+    level = level - 1
+  end
+  gauge.event.notify("loadMap", {
+    file = level .. ".lua"
+  })
+end
 
 local spawn = gauge.entity.getList({type="player_spawn"})[1]
 local player = gauge.entity.new({
@@ -258,6 +266,12 @@ gauge.event.subscribe("input",
     end
     if input.actions.stop then
       player.velocity({x = 0})
+    end
+    if input.actions.nextLevel then
+      nextLevel()
+    end
+    if input.actions.previousLevel then
+      previousLevel()
     end
   end
 )
