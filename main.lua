@@ -78,15 +78,26 @@ gauge.entity.registerType("player", {
   scaled=false,
   image=love.graphics.newImage("celia.png"),
   frame=0,
-  framerate = 5,
+  framerate=5,
+  frames=3,
+  animation=0,
   render=function(object, self)
-    self.frame = self.frame % 4
-    local sprite = love.graphics.newQuad(64*math.floor(self.frame),0,64,128,256,128)
+    self.frame = self.frame % self.frames
+    local sprite = love.graphics.newQuad(64*math.floor(self.frame),128*self.animation,64,128,384,256)
     love.graphics.setColor({255,255,255})
     local position = object.position()
     love.graphics.drawq(self.image,sprite,position.x,position.y)
   end,
   update=function(object, self, dt)
+    if math.abs(self.velocity.x) > 1 then
+      self.animation = 1
+      self.frames = 6
+      self.framerate = 20
+    else
+      self.animation = 0
+      self.frames = 3
+      self.framerate = 5
+    end
     self.frame = self.frame + dt*self.framerate
     
     -- camera
