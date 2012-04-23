@@ -211,7 +211,6 @@ end
 nextLevel()
 
 local spawn = gauge.entity.getList({type="player_spawn"})[1]
-print(#gauge.entity.getList({type="player_spawn"}))
 local player = gauge.entity.new({
   type="player",
   position={x=spawn.position().x, y=spawn.position().y},
@@ -325,6 +324,7 @@ gauge.event.subscribe("input", function (input)
   if input.actions.reset then
     tween.stop(scaleTween)
     gauge.state.get().map.reset()
+    spawn = gauge.entity.getList({type="player_spawn"})[1]
     player = gauge.entity.new({
       type="player",
       position={x=spawn.position().x, y=spawn.position().y},
