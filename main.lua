@@ -7,19 +7,12 @@ local g = jump_v*jump_v/(2*jump_height)
 
 local context = gauge.input.context.new({active = true})
 context.map = function (raw_in, map_in)
-  if raw_in.key.pressed["up"] then
+  if raw_in.key.pressed["up"] or
+      raw_in.key.pressed[" "] then
     map_in.actions["jump"] = true
   end
   
-  if raw_in.key.pressed["down"] then
-    map_in.actions["zoomOut"] = true
-  end
-  
-  if raw_in.key.released["down"] then
-    map_in.actions["zoomIn"] = true
-  end
-  
-  if raw_in.key.pressed["r"] then
+  if raw_in.key.pressed["return"] then
     map_in.actions["reset"] = true
   end
 
@@ -56,20 +49,22 @@ context.map = function (raw_in, map_in)
   end
   
   -- Map Switch
-  if raw_in.key.pressed["e"] then
+  --[[if raw_in.key.pressed["e"] then
     map_in.actions["nextLevel"] = true
   end
   if raw_in.key.pressed["q"] then
     map_in.actions["previousLevel"] = true
-  end
+  end]]
   
   return map_in
 end
 
-local littleTheme = gauge.music.new({file="little.ogg", volume=0, loop=true})
-local bigTheme = gauge.music.new({file="big.ogg", volume=0, loop=true})
-littleTheme.play()
-bigTheme.play()
+--local littleTheme = gauge.music.new({file="little.ogg", volume=0, loop=true})
+--local bigTheme = gauge.music.new({file="big.ogg", volume=0, loop=true})
+local celiaTheme = gauge.music.new({file="carefulwiththatcakecelia.ogg", volume=1, loop=true})
+--littleTheme.play()
+--bigTheme.play()
+celiaTheme.play()
 
 gauge.entity.registerType("player", {
   acceleration = { x = 0, y = g },
@@ -139,6 +134,18 @@ gauge.entity.registerType("player", {
     scaleFlip, 1, originFlip, 0)
   end,
   update=function(object, self, dt)
+    local map = gauge.state.get().map
+    local camera = gauge.state.get().camera
+    if map and map.properties and map.properties().credits then
+      self.position = { x = 0, y = 0 }
+      self.velocity = { x = 0, y = 0 }
+      self.acceleration = { x = 0, y = 0 }
+      self.animation = "falling"
+      self.frame = self.frame + dt*self.animations[self.animation].framerate
+      camera.position.x = 128
+      camera.position.y = -128
+      return
+    end
     if self.velocity.y > 1 then
       self.animation = "falling"
     elseif self.velocity.y < -1 then
@@ -201,7 +208,7 @@ gauge.entity.registerType("player", {
     camera.position.y = math.floor(camera.position.y)
     
     -- music
-    if gauge.entity.scale > 1/2 then
+    --[[if gauge.entity.scale > 1/2 then
       littleTheme.volume(1)
       bigTheme.volume(0)
     elseif gauge.entity.scale < 1/4 then
@@ -211,7 +218,7 @@ gauge.entity.registerType("player", {
       local s = ((1 / gauge.entity.scale) - 2) / 2
       littleTheme.volume(1 - s)
       bigTheme.volume(s)
-    end
+    end]]--
   end
 })
 
@@ -237,6 +244,11 @@ local player = gauge.entity.new({
   type="player",
   position={x=spawn.position().x, y=spawn.position().y},
 })
+local camera = gauge.state.get().camera
+camera.position = {
+  x = player.position().x,
+  y = player.position().y
+}
 
 gauge.event.subscribe("animation",
   function (arg)
@@ -343,31 +355,6 @@ gauge.event.subscribe("entityStuck",
   end
 )
 
-local cameraTween = nil
-gauge.event.subscribe("input",
-  function (input)
-    if input.actions.zoomOut then
-      gauge.state.get().camera.zoom = true
-      tween.stop(cameraTween)
-      cameraTween = tween(1, gauge.state.get().camera,{
-        scale = 0.2
-      })
-    end
-  end
-)
-
-gauge.event.subscribe("input",
-  function (input)
-    if input.actions.zoomIn then
-      gauge.state.get().camera.zoom = false
-      tween.stop(cameraTween)
-      cameraTween = tween(1, gauge.state.get().camera,{
-        scale = 1
-      })
-    end
-  end
-)
-
 gauge.event.subscribe("input", function (input)
   if input.actions.reset then
     tween.stop(scaleTween)
@@ -377,6 +364,11 @@ gauge.event.subscribe("input", function (input)
       type="player",
       position={x=spawn.position().x, y=spawn.position().y},
     })
+    local camera = gauge.state.get().camera
+    camera.position = {
+      x = player.position().x,
+      y = player.position().y
+    }
     scale = gauge.entity.scale
     growing = false
     shrinking = false
