@@ -73,10 +73,16 @@ bigTheme.play()
 
 gauge.entity.registerType("player", {
   acceleration = { x = 0, y = g },
-  width=30,
-  height=30,
+  width=64,
+  height=128,
   scaled=false,
-  update = function (object, self, dt)
+  image=love.graphics.newImage("celia.png"),
+  render=function(object, self)
+    local sprite = love.graphics.newQuad(0,0,64,128,256,128)
+    love.graphics.setColor({255,255,255})
+    love.graphics.drawq(self.image,sprite,self.position.x,self.position.y)
+  end,
+  update=function(object, self, dt)
     -- camera
     local camera = gauge.state.get().camera
     local player_x = nil
