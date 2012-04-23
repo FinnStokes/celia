@@ -73,8 +73,8 @@ bigTheme.play()
 
 gauge.entity.registerType("player", {
   acceleration = { x = 0, y = g },
-  width=64,
-  height=128,
+  width=38,
+  height=118,
   scaled=false,
   image=love.graphics.newImage("celia.png"),
   animations = {
@@ -125,7 +125,7 @@ gauge.entity.registerType("player", {
       scaleFlip = -1
       originFlip = 64
     end
-    love.graphics.drawq(self.image,sprite,position.x,position.y,0,
+    love.graphics.drawq(self.image,sprite,position.x-16,position.y-10,0,
     scaleFlip, 1, originFlip, 0)
   end,
   update=function(object, self, dt)
