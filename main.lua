@@ -76,6 +76,7 @@ gauge.entity.registerType("player", {
   width=38,
   height=118,
   scaled=false,
+  dynamic=true,
   image=love.graphics.newImage("celia.png"),
   animations = {
     idle = {
