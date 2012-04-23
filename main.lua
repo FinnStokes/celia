@@ -100,6 +100,8 @@ gauge.entity.registerType("player", {
     else
       camera.position.y = player_y
     end
+    camera.position.x = math.floor(camera.position.x)
+    camera.position.y = math.floor(camera.position.y)
     
     -- music
     if gauge.entity.scale > 1/2 then
