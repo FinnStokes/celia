@@ -186,9 +186,12 @@ gauge.event.subscribe("entityCollision",
         entities[2].delete = true
       end
       if entities[2].type == "door" then
-        local size = entities[2].width() * (30 / 32)
-        if math.abs(player.width() - size) < 1 then
+        local size = entities[2].height()
+        if math.abs(player.height() - size) < 1 then
+          if math.abs(entities[2].position().x - player.position().x) < 4 and
+              math.abs(entities[2].position().y - player.position().y) < 4 then
           nextLevel()
+          end
         end
       end
     end
