@@ -237,18 +237,23 @@ gauge.event.subscribe("animation",
   end
 )
 
+local growing = false
+local endGrow = function()
+  growing = false
+end
+
 gauge.event.subscribe("input",
   function (input)
-    if input.actions.jump then
+    if input.actions.jump and not growing then
       if not player.falling then
         player.velocity({y = -jump_v*math.sqrt(gauge.entity.scale)})
         player.falling = true
       end
     end
-    if input.actions.left then
+    if input.actions.left and not growing then
       player.velocity({x = -walk_v*math.sqrt(gauge.entity.scale)})
     end
-    if input.actions.right then
+    if input.actions.right and not growing then
       player.velocity({x = walk_v*math.sqrt(gauge.entity.scale)})
     end
     if input.actions.stop then
@@ -261,11 +266,6 @@ local scale = gauge.entity.scale
 
 local scaleTween = nil
 
-local growing = false
-local endGrow = function()
-  growing = false
-end
-
 gauge.event.subscribe("entityCollision",
   function (entities)
     if entities[1] == player then
@@ -275,12 +275,14 @@ gauge.event.subscribe("entityCollision",
         scaleTween = tween(1,gauge.entity,{scale = scale},'linear',endGrow)
         entities[2].delete = true
         growing = true
+        gauge.event.notify("input", {actions={stop=true}})
       end
       if entities[2].type == "shrinker" and scale < 1 then
         tween.stop(scaleTween)
         scale = 1/(1/scale - 1)
         scaleTween = tween(1,gauge.entity,{scale = scale})
         entities[2].delete = true
+        gauge.event.notify("input", {actions={stop=true}})
       end
       if entities[2].type == "door" then
         local size = entities[2].height()
