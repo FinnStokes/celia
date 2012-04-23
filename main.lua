@@ -91,8 +91,8 @@ gauge.entity.registerType("player", {
     local player_x = nil
     local player_y = nil
     if camera.zoom then
-      player_x = -object.position().x
-      player_y = -object.position().y
+      player_x = object.position().x / 4
+      player_y = object.position().y / 4
     else
       player_x = object.position().x
       player_y = object.position().y
@@ -188,9 +188,12 @@ gauge.event.subscribe("entityCollision",
         entities[2].delete = true
       end
       if entities[2].type == "door" then
-        local size = entities[2].width() * (30 / 32)
-        if math.abs(player.width() - size) < 1 then
+        local size = entities[2].height()
+        if math.abs(player.height() - size) < 1 then
+          if math.abs(entities[2].position().x - player.position().x) < 4 and
+              math.abs(entities[2].position().y - player.position().y) < 4 then
           nextLevel()
+          end
         end
       end
     end
