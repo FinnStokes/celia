@@ -246,22 +246,24 @@ gauge.event.subscribe("animation",
 )
 
 local growing = false
-local endGrow = function()
+local shrinking = false
+local endScale = function()
   growing = false
+  shrinking = false
 end
 
 gauge.event.subscribe("input",
   function (input)
-    if input.actions.jump and not growing then
+     if input.actions.jump and not (growing or shrinking) then
       if not player.falling then
         player.velocity({y = -jump_v*math.sqrt(gauge.entity.scale)})
         player.falling = true
       end
     end
-    if input.actions.left and not growing then
+    if input.actions.left and not (growing or shrinking) then
       player.velocity({x = -walk_v*math.sqrt(gauge.entity.scale)})
     end
-    if input.actions.right and not growing then
+    if input.actions.right and not (growing or shrinking) then
       player.velocity({x = walk_v*math.sqrt(gauge.entity.scale)})
     end
     if input.actions.stop then
@@ -286,16 +288,19 @@ gauge.event.subscribe("entityCollision",
       if entities[2].type == "grower" and scale > 1 / 5  then
         tween.stop(scaleTween)
         scale = 1/(1/scale + 1)
-        scaleTween = tween(1,gauge.entity,{scale = scale},'linear',endGrow)
+        scaleTween = tween(1,gauge.entity,{scale = scale},'linear',endScale)
         entities[2].delete = true
         growing = true
+        shrinking = false
         gauge.event.notify("input", {actions={stop=true}})
       end
       if entities[2].type == "shrinker" and scale < 1 then
         tween.stop(scaleTween)
         scale = 1/(1/scale - 1)
-        scaleTween = tween(1,gauge.entity,{scale = scale})
+        scaleTween = tween(1,gauge.entity,{scale = scale},'linear',endScale)
         entities[2].delete = true
+        growing = false
+        shrinking = true
         gauge.event.notify("input", {actions={stop=true}})
       end
       if entities[2].type == "door" then
@@ -330,8 +335,9 @@ gauge.event.subscribe("entityStuck",
     if entity == player and growing then
       tween.stop(scaleTween)
       scale = 1/(1/scale - 1)
-      scaleTween = tween(0.5, gauge.entity,{scale = scale})
+      scaleTween = tween(0.5, gauge.entity,{scale = scale},'linear',endScale)
       growing = false
+      shrinking = true
     end
   end
 )
@@ -371,5 +377,7 @@ gauge.event.subscribe("input", function (input)
       position={x=spawn.position().x, y=spawn.position().y},
     })
     scale = gauge.entity.scale
+    growing = false
+    shrinking = false
   end
 end)
