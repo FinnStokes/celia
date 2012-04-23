@@ -1,6 +1,6 @@
-local walk_v = 100
-local jump_height = 75
-local jump_length = 96
+local walk_v = 512
+local jump_height = 272
+local jump_length = 384
 
 local jump_v = 4*walk_v*jump_height/jump_length
 local g = jump_v*jump_v/(2*jump_height)
@@ -80,7 +80,8 @@ gauge.entity.registerType("player", {
   render=function(object, self)
     local sprite = love.graphics.newQuad(0,0,64,128,256,128)
     love.graphics.setColor({255,255,255})
-    love.graphics.drawq(self.image,sprite,self.position.x,self.position.y)
+      local position = object.position()
+    love.graphics.drawq(self.image,sprite,position.x,position.y)
   end,
   update=function(object, self, dt)
     -- camera
