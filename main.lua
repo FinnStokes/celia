@@ -77,28 +77,87 @@ gauge.entity.registerType("player", {
   height=128,
   scaled=false,
   image=love.graphics.newImage("celia.png"),
-  frame=0,
-  framerate=5,
-  frames=3,
-  animation=0,
+  animations = {
+    idleLeft = {
+      framerate = 3,
+      frames = 3,
+      flipped = true,
+      line = 0
+    },
+    idleRight = {
+      framerate = 3,
+      frames = 3,
+      flipped = false,
+      line = 0
+    },
+    walkLeft = {
+      framerate = 15,
+      frames = 6,
+      flipped = true,
+      line = 1
+    },
+    walkRight = {
+      framerate = 15,
+      frames = 6,
+      flipped = false,
+      line = 1
+    }
+  },
+  frame = 0,
+  faceRight = true,
+  animation = "idleRight",
+  setAnimation=function(anim)
+    self.animation = anim
+  end,
+  chestHeaving = 1,
   render=function(object, self)
-    self.frame = self.frame % self.frames
-    local sprite = love.graphics.newQuad(64*math.floor(self.frame),128*self.animation,64,128,384,256)
+    if self.frame >self.animations[self.animation].frames then
+      self.frame = self.frame - self.animations[self.animation].frames
+    end
+    --self.frame = self.frame % self.frames <-- not sure if want
+    local sprite = love.graphics.newQuad(64*math.floor(self.frame),
+      128*self.animations[self.animation].line,64,128,384,256)
     love.graphics.setColor({255,255,255})
     local position = object.position()
-    love.graphics.drawq(self.image,sprite,position.x,position.y)
+    local scaleFlip = 1
+    local originFlip = 0
+    if self.animations[self.animation].flipped then
+      scaleFlip = -1
+      originFlip = 64
+    end
+    love.graphics.drawq(self.image,sprite,position.x,position.y,0,
+    scaleFlip, 1, originFlip, 0)
   end,
   update=function(object, self, dt)
-    if math.abs(self.velocity.x) > 1 then
-      self.animation = 1
-      self.frames = 6
-      self.framerate = 20
+    if self.velocity.x > 1 then
+      self.animation = "walkRight"
+      self.faceRight = true
+      if self.chestHeaving < 5 then
+        self.chestHeaving = self.chestHeaving + dt
+      end
+    elseif self.velocity.x < -1 then
+      self.animation = "walkLeft"
+      self.faceRight = false
+      if self.chestHeaving < 5 then
+        self.chestHeaving = self.chestHeaving + dt
+      end
+    elseif self.faceRight then
+      self.animation = "idleRight"
+      if self.chestHeaving > 1 then
+        self.chestHeaving = self.chestHeaving - dt
+      end
     else
-      self.animation = 0
-      self.frames = 3
-      self.framerate = 5
+      self.animation = "idleLeft"
+      if self.chestHeaving > 1 then
+        self.chestHeaving = self.chestHeaving - dt
+      end
     end
-    self.frame = self.frame + dt*self.framerate
+    if self.animation == "idleLeft" then
+      self.animations[self.animation].framerate = 2 * self.chestHeaving
+    elseif self.animation == "idleRight" then
+      self.animations[self.animation].framerate = 2 * self.chestHeaving
+    end
+    self.frame = self.frame + dt*self.animations[self.animation].framerate
     
     -- camera
     local camera = gauge.state.get().camera
@@ -155,6 +214,14 @@ local player = gauge.entity.new({
   type="player",
   position={x=spawn.position().x, y=spawn.position().y},
 })
+
+gauge.event.subscribe("animation",
+  function (arg)
+    if arg.entity == player then
+      player.setAnimation(arg.animation)
+    end
+  end
+)
 
 gauge.event.subscribe("input",
   function (input)
