@@ -192,6 +192,7 @@ gauge.event.subscribe("entityStuck",
       tween.stop(scaleTween)
       scale = 1/(1/scale - 1)
       scaleTween = tween(0.5, gauge.entity,{scale = scale})
+      growing = false
     end
   end
 )
