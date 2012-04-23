@@ -88,8 +88,8 @@ gauge.entity.registerType("player", {
     local player_x = nil
     local player_y = nil
     if camera.zoom then
-      player_x = -object.position().x
-      player_y = -object.position().y
+      player_x = object.position().x / 4
+      player_y = object.position().y / 4
     else
       player_x = object.position().x
       player_y = object.position().y
