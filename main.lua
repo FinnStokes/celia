@@ -77,10 +77,12 @@ gauge.entity.registerType("player", {
   height=128,
   scaled=false,
   image=love.graphics.newImage("celia.png"),
+  frame=0,
   render=function(object, self)
-    local sprite = love.graphics.newQuad(0,0,64,128,256,128)
+    self.frame = self.frame % 4
+    local sprite = love.graphics.newQuad(64*self.frame,0,64,128,256,128)
     love.graphics.setColor({255,255,255})
-      local position = object.position()
+    local position = object.position()
     love.graphics.drawq(self.image,sprite,position.x,position.y)
   end,
   update=function(object, self, dt)
