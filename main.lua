@@ -116,7 +116,14 @@ gauge.entity.registerType("player", {
   end
 })
 
-gauge.event.notify("loadMap", {file="test_level.lua"})
+local level = 0
+local nextLevel = function ()
+  level = level + 1
+  gauge.event.notify("loadMap", {
+    file = level .. ".lua"
+  })
+end
+nextLevel()
 
 local spawn = gauge.entity.getList({type="player_spawn"})[1]
 local player = gauge.entity.new({
@@ -168,6 +175,12 @@ gauge.event.subscribe("entityCollision",
         scale = 1/(1/scale - 1)
         scaleTween = tween(1,gauge.entity,{scale = scale})
         entities[2].delete = true
+      end
+      if entities[2].type == "door" then
+        local size = entities[2].width() * (30 / 32)
+        if math.abs(player.width() - size) < 1 then
+          nextLevel()
+        end
       end
     end
   end
