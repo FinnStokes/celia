@@ -59,9 +59,9 @@ context.map = function (raw_in, map_in)
   return map_in
 end
 
---local littleTheme = gauge.music.new({file="little.ogg", volume=0, loop=true})
---local bigTheme = gauge.music.new({file="big.ogg", volume=0, loop=true})
-local celiaTheme = gauge.music.new({file="carefulwiththatcakecelia.ogg", volume=1, loop=true})
+--local littleTheme = gauge.music.new({file="game/little.ogg", volume=0, loop=true})
+--local bigTheme = gauge.music.new({file="game/big.ogg", volume=0, loop=true})
+local celiaTheme = gauge.music.new({file="game/carefulwiththatcakecelia.ogg", volume=1, loop=true})
 --littleTheme.play()
 --bigTheme.play()
 celiaTheme.play()
@@ -72,7 +72,7 @@ gauge.entity.registerType("player", {
   height=118,
   scaled=false,
   dynamic=true,
-  image=love.graphics.newImage("celia.png"),
+  image=love.graphics.newImage("game/celia.png"),
   animations = {
     idle = {
       framerate = 3,
@@ -226,7 +226,7 @@ local level = 0
 local nextLevel = function ()
   level = level + 1
   gauge.event.notify("loadMap", {
-    file = level .. ".lua"
+    file = "game/" .. level .. ".lua"
   })
 end
 nextLevel()
@@ -235,7 +235,7 @@ local previousLevel = function ()
     level = level - 1
   end
   gauge.event.notify("loadMap", {
-    file = level .. ".lua"
+    file = "game/" .. level .. ".lua"
   })
 end
 
