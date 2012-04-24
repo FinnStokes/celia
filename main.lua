@@ -115,10 +115,10 @@ gauge.entity.registerType("player", {
   end,
   chestHeaving = 1,
   render=function(object, self)
-    if self.frame >self.animations[self.animation].frames then
-      self.frame = self.frame - self.animations[self.animation].frames
-    end
-    --self.frame = self.frame % self.frames <-- not sure if want
+    --if self.frame >self.animations[self.animation].frames then
+    --  self.frame = self.frame - self.animations[self.animation].frames
+    --end
+    self.frame = self.frame % self.animations[self.animation].frames
     local sprite = love.graphics.newQuad(64*math.floor(self.frame),
       128*self.animations[self.animation].line,64,128,
       self.image:getWidth(), self.image:getHeight())
