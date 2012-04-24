@@ -8,12 +8,23 @@ local g = jump_v*jump_v/(2*jump_height)
 local context = gauge.input.context.new({active = true})
 context.map = function (raw_in, map_in)
   if raw_in.key.pressed["up"] or
-      raw_in.key.pressed[" "] then
+      raw_in.key.pressed[" "] or
+      raw_in.joystick.pressed[1] then
     map_in.actions["jump"] = true
   end
   
-  if raw_in.key.pressed["return"] then
+  if raw_in.key.pressed["return"] or
+    raw_in.joystick.pressed[2] then
     map_in.actions["reset"] = true
+  end
+
+  -- Joystick movement
+  if raw_in.joystick.axis[1] < -0.2 then
+    map_in.actions["left"] = true
+  elseif raw_in.joystick.axis[1] > 0.2 then
+    map_in.actions["right"] = true
+  else
+    map_in.actions["stop"] = true
   end
 
   -- Left Key
