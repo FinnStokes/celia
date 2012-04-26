@@ -14,17 +14,20 @@ context.map = function (raw_in, map_in)
   end
   
   if raw_in.key.pressed["return"] or
+    raw_in.key.pressed["r"] or
     raw_in.joystick.pressed[2] then
     map_in.actions["reset"] = true
   end
 
   -- Joystick movement
-  if raw_in.joystick.axis[1] < -0.2 then
-    map_in.actions["left"] = true
-  elseif raw_in.joystick.axis[1] > 0.2 then
-    map_in.actions["right"] = true
-  else
-    map_in.actions["stop"] = true
+  if raw_in.joystick.axis and raw_in.joystick.axis[1] then
+    if raw_in.joystick.axis[1] < -0.2 then
+      map_in.actions["left"] = true
+    elseif raw_in.joystick.axis[1] > 0.2 then
+      map_in.actions["right"] = true
+    else
+      map_in.actions["stop"] = true
+    end
   end
 
   -- Left Key

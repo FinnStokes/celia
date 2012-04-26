@@ -219,15 +219,6 @@ return {
         {
           name = "",
           type = "shrinker",
-          x = 2688,
-          y = 3968,
-          width = 128,
-          height = 128,
-          properties = {}
-        },
-        {
-          name = "",
-          type = "shrinker",
           x = 896,
           y = 2048,
           width = 128,
