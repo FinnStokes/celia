@@ -89,7 +89,11 @@ M.new = function(arg)
     end
   end
   local canvas = love.graphics.newCanvas(map.width*map.tilesets[1].tilewidth, map.height*map.tilesets[1].tileheight)
-  canvas:setWrap('wrap','wrap')
+  if map.properties["wrap"] == "true" then
+    canvas:setWrap('repeat','repeat')
+  else
+    canvas:setWrap('clamp','clamp')
+  end
   
   -- parallax
   local parallax ={}

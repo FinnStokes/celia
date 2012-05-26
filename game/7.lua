@@ -9,7 +9,8 @@ return {
   properties = {
     ["parallax1"] = "Background_Maze_Layer1.png",
     ["parallax2"] = "Background_Maze_Layer2.png",
-    ["parallax3"] = "Background_Maze_Layer3.png"
+    ["parallax3"] = "Background_Maze_Layer3.png",
+    ["wrap"] = "true"
   },
   tilesets = {
     {
