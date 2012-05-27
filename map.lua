@@ -171,13 +171,18 @@ M.new = function(arg)
     for i=1,#parallax do
       parallax[i]:setWrap('repeat','repeat')
       local image = parallax[i]
-      local width = parallax[i]:getWidth()
-      local height = parallax[i]:getHeight()
-      local x = (i / 10) * (camera.x - (screen_width / 2))
-      local y = (height - (screen_height / 2))
+      -- local width = parallax[i]:getWidth()
+      -- local height = parallax[i]:getHeight()
+      -- local x = (i / 10) * (camera.x - (screen_width / 2))
+      -- local y = (height - (screen_height / 2))
+      local width = screen_width
+      local height = screen_height
+      local x = (i / 20) * (camera.x - (screen_width / 2))
+      local y = 0
       if x < screen_width and x + width > 0 then
          love.graphics.drawq(parallax[i],
-            love.graphics.newQuad(x,y,screen_width,screen_height,width*entity.scale,height*entity.scale),
+            -- love.graphics.newQuad(x,y,screen_width,screen_height,width*entity.scale,height*entity.scale),
+            love.graphics.newQuad(x,y,screen_width,screen_height,width,height),
             0, -- x
             0, -- y
             0, -- rotation
