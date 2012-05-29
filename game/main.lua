@@ -275,6 +275,7 @@ gauge.event.subscribe("animation",
 local growing = false
 local shrinking = false
 local endScale = function()
+  player.transforming = false
   growing = false
   shrinking = false
 end
@@ -319,6 +320,7 @@ gauge.event.subscribe("entityCollision",
         entities[2].delete = true
         growing = true
         shrinking = false
+        player.transforming = true
         gauge.event.notify("input", {actions={stop=true}})
       end
       if entities[2].type == "shrinker" and scale < 1 then
@@ -328,6 +330,7 @@ gauge.event.subscribe("entityCollision",
         entities[2].delete = true
         growing = false
         shrinking = true
+        player.transforming = true
         gauge.event.notify("input", {actions={stop=true}})
       end
       if entities[2].type == "door" then
@@ -372,6 +375,7 @@ gauge.event.subscribe("entityStuck",
 gauge.event.subscribe("input", function (input)
   if input.actions.reset then
     tween.stop(scaleTween)
+    player.transforming = false
     gauge.state.get().map.reset()
     spawn = gauge.entity.getList({type="player_spawn"})[1]
     player = gauge.entity.new({
