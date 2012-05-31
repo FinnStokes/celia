@@ -195,7 +195,7 @@
  </tileset>
  <layer name="Tile Layer 1" width="27" height="25">
   <data encoding="base64" compression="zlib">
-   eJztUzEOwjAM9AYPKGUpOwxQ2KCMUEZaRij/fwe2lKiW5aaOIJ04yYoVO7r4bAMA7CEtSub/uf5cQ1znxFwV82+JuWrmPxJztcyful8r52doC7ScxSlWuFju4gV7EwK9kf26oC2Z7VhcxrQcj62SJ/v1DPztbvi/B+kle2Lp1xptE8lFeskdsuzXDG0eyUV6yR0a2y+v+wnC+kqQXnKHfrFfmTv53I716628CeEI+lySBmP94vlXA1cIWl2llohooNfGw1ovQaur0hIRLxjWyFK/Noe1lhiBZuBem8NWS4zk8toe3B1p30E/ax7dl1xWrf18To0PvLUbow==
+   eJztVD0TgjAMzaY/AHHBXQcFN4VRYRQY/fj/v8PmbM93OVoKWibeXS65JuVdXlKIiDIKixTimWvmsnEVgblyiKvAXCXEbWCuBuKp57XRcaRspSyGPOcSnYt1PtHnWNcFviPntVe2BjtA/iJytjoD+a0h87r15CVYswy8z7y2ynYjuFizArzP+1ooW47gYs0q8H3vy2h+VnYfyMWateD/8b4i7XFv2bvm9eq448KJ7HvJOrjmhbVX/7askH2llrqavtoY+PZrIPvKLXUPcmvk07/cw9JR64PakZN72DhqfbmMtkd9Zv6XT/rsG/pf0Kex3M2p8Qb+ByC0
   </data>
  </layer>
  <objectgroup name="Object Layer 1" width="27" height="25">
