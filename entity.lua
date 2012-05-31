@@ -283,9 +283,7 @@ M.update = function (dt)
   for _,entity in ipairs(manager.entities) do
     entity.update(dt)
   end
-  print("No. entities", #manager.entities)
   for i = 1,#manager.entities do
-    print("Entity", i)
     local e1 = manager.entities[i]
     if not (e1 == nil) then
       local p1 = e1.getPosition()
