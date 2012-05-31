@@ -169,7 +169,9 @@ M.new = function(arg)
 
   -- render()
   object.render = function ()
-    local camera = state.get().camera.position  
+    local camera = state.get().camera.position
+    camera.x = math.floor(camera.x)
+    camera.y = math.floor(camera.y)
     love.graphics.setColor({255,255,255})
     local screen_width = love.graphics.getWidth() --native_mode.width
     local screen_height = love.graphics.getHeight() --native_mode.height

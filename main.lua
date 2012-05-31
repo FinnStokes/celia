@@ -66,8 +66,8 @@ love.load = function ()
       game_state.map.render()
     end
     love.graphics.translate(
-      (love.graphics.getWidth() / 2) - game_state.camera.position.x,
-      (love.graphics.getHeight() / 2) - game_state.camera.position.y)
+      (love.graphics.getWidth() / 2) - math.floor(game_state.camera.position.x),
+      (love.graphics.getHeight() / 2) - math.floor(game_state.camera.position.y))
     gauge.entity.render()
     love.graphics.pop()
   end
