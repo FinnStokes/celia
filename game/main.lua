@@ -137,7 +137,7 @@ gauge.entity.registerType("player", {
       128*self.animations[self.animation].line,64,128,
       self.image:getWidth(), self.image:getHeight())
     love.graphics.setColor({255,255,255})
-    local position = object.position()
+    local position = object.getPosition()
     local scaleFlip = 1
     local originFlip = 0
     if not self.faceRight then
@@ -197,14 +197,12 @@ gauge.entity.registerType("player", {
     
     -- camera
     local camera = gauge.state.get().camera
-    local player_x = nil
-    local player_y = nil
+    local position = object.getPosition()
+    local player_x = position.x
+    local player_y = position.y
     if camera.zoom then
-      player_x = object.position().x / 4
-      player_y = object.position().y / 4
-    else
-      player_x = object.position().x
-      player_y = object.position().y
+      player_x = player_x / 4
+      player_y = player_y / 4
     end
     local dx = camera.position.x - player_x
     local dy = camera.position.y - player_y
@@ -256,13 +254,10 @@ end
 local spawn = gauge.entity.getList({type="player_spawn"})[1]
 local player = gauge.entity.new({
   type="player",
-  position={x=spawn.position().x, y=spawn.position().y},
+  position=spawn.getPosition(),
 })
 local camera = gauge.state.get().camera
-camera.position = {
-  x = player.position().x,
-  y = player.position().y
-}
+camera.position = player.getPosition()
 
 gauge.event.subscribe("animation",
   function (arg)
@@ -336,10 +331,12 @@ gauge.event.subscribe("entityCollision",
       if entities[2].type == "door" then
         local size = entities[2].height()
         if math.abs(128 - size) < 1 then
-          if player.position().x >= entities[2].position().x and
-              player.position().x + player.width() <= entities[2].position().x + entities[2].width() and
-              player.position().y >= entities[2].position().y and
-              player.position().y + player.height() <= entities[2].position().y + entities[2].height() then
+	  local player_pos = player.getPosition()
+	  local door_pos = entities[2].getPosition()
+          if player_pos.x >= door_pos.x and
+              player_pos.x + player.width() <= door_pos.x + entities[2].width() and
+              player_pos.y >= door_pos.y and
+              player_pos.y + player.height() <= door_pos.y + entities[2].height() then
             nextLevel()            
           end
         elseif 128 < size then
@@ -380,13 +377,10 @@ gauge.event.subscribe("input", function (input)
     spawn = gauge.entity.getList({type="player_spawn"})[1]
     player = gauge.entity.new({
       type="player",
-      position={x=spawn.position().x, y=spawn.position().y},
+      position=spawn.getPosition(),
     })
     local camera = gauge.state.get().camera
-    camera.position = {
-      x = player.position().x,
-      y = player.position().y
-    }
+    camera.position = player.getPosition()
     scale = gauge.entity.scale
     growing = false
     shrinking = false
