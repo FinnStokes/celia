@@ -283,23 +283,29 @@ M.update = function (dt)
   for _,entity in ipairs(manager.entities) do
     entity.update(dt)
   end
+  print("No. entities", #manager.entities)
   for i = 1,#manager.entities do
+    print("Entity", i)
     local e1 = manager.entities[i]
-    local p1 = e1.getPosition()
-    local l1 = p1.x
-    local r1 = p1.x + e1.width()
-    local t1 = p1.y
-    local b1 = p1.y + e1.height()
-    for j = i,#manager.entities do
-      local e2 = manager.entities[j]
-      local p2 = e2.getPosition()
-      local l2 = p2.x
-      local r2 = p2.x + e2.width()
-      local t2 = p2.y
-      local b2 = p2.y + e2.height()
-      if r1 >= l2 and r2 >= l1 and b1 >= t2 and b2 >= t1 then
-        event.notify("entityCollision",{e1,e2})
-        event.notify("entityCollision",{e2,e1})
+    if not (e1 == nil) then
+      local p1 = e1.getPosition()
+      local l1 = p1.x
+      local r1 = p1.x + e1.width()
+      local t1 = p1.y
+      local b1 = p1.y + e1.height()
+      for j = i,#manager.entities do
+        local e2 = manager.entities[j]
+        if not (e2 == nil) then
+          local p2 = e2.getPosition()
+          local l2 = p2.x
+          local r2 = p2.x + e2.width()
+          local t2 = p2.y
+          local b2 = p2.y + e2.height()
+          if r1 >= l2 and r2 >= l1 and b1 >= t2 and b2 >= t1 then
+            event.notify("entityCollision",{e1,e2})
+            event.notify("entityCollision",{e2,e1})
+          end
+        end
       end
     end
   end
