@@ -88,7 +88,17 @@ M.new = function(arg)
       end
     end
   end
-  local canvas = love.graphics.newCanvas(map.width*map.tilesets[1].tilewidth, map.height*map.tilesets[1].tileheight)
+  
+  local mapPixelWidth = map.width * map.tilesets[1].tilewidth
+  local mapPixelHeight = map.height * map.tilesets[1].tileheight
+  
+  -- Attempting to fix canvas error "Cannot create canvas: error in implementation."
+  -- It doesn't work.
+  local mpw = math.pow(2, math.ceil( math.log(mapPixelWidth)/math.log(2) ))
+  local mph = math.pow(2, math.ceil( math.log(mapPixelHeight)/math.log(2) ))
+  
+  local canvas = love.graphics.newCanvas(mpw, mph)
+  
   if map.properties["wrap"] == "true" then
     canvas:setWrap('repeat','repeat')
   else
