@@ -146,6 +146,19 @@ M.new = function (arg)
            event.notify("entityStuck",object)
         end
       end
+      
+      if self.position.x < 0 then
+        self.position.x = self.position.x + map.width()
+      end
+      if self.position.x > map.width() then
+        self.position.x = self.position.x - map.width()
+      end
+      if self.position.y < 0 then
+        self.position.y = self.position.y + map.height()
+      end
+      if self.position.y > map.height() then
+        self.position.y = self.position.y - map.height()
+      end
     end
     
     if self.update then
