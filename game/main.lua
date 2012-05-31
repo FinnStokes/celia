@@ -63,12 +63,12 @@ context.map = function (raw_in, map_in)
   end
   
   -- Map Switch
-  --[[if raw_in.key.pressed["e"] then
+  if raw_in.key.pressed["e"] then
     map_in.actions["nextLevel"] = true
   end
   if raw_in.key.pressed["q"] then
     map_in.actions["previousLevel"] = true
-  end]]
+  end
   
   return map_in
 end
