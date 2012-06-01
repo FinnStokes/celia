@@ -92,8 +92,17 @@ love.load = function ()
   pcall(trusted_code)
 end
 
+frames = 0
+time = 0
+skipped = 0
+
 love.update = function (dt)  
-  if dt > 1/60 then dt = 1/60 end
+  frames = frames + 1
+  time = time + dt
+  if dt > 1/60 then
+    dt = 1/60
+    skipped = skipped + 1
+  end
 
   local input = gauge.input.update(dt)
   if input then
@@ -132,6 +141,8 @@ end
 
 love.quit = function ()
    profiler:stop()
+   print("Average fps",frames/time)
+   print("% frames skipped",(skipped/frames) * 100)
    local outfile = io.open( "profile.txt", "w+" )
    profiler:report( outfile )
    outfile:close()
