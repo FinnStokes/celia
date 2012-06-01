@@ -76,24 +76,28 @@ M.new = function(arg)
       map.tilesets[tilelayer].imageheight
     )
   end
-  local batch = love.graphics.newSpriteBatch(tileset.image,
-    map.width * map.height)
-  batch:clear()
-  for x=1,map.layers[tilelayer].width do
-    for y=1,map.layers[tilelayer].height do
-      if map.layers[tilelayer].data[x][y] > 0 then
-        batch:addq(tileset.quads[map.layers[tilelayer].data[x][y]],
-          (x-1)*map.tilesets[tilelayer].tilewidth,
-          (y-1)*map.tilesets[tilelayer].tilewidth)
-      end
-    end
-  end
-  local canvas = love.graphics.newCanvas(map.width*map.tilesets[1].tilewidth, map.height*map.tilesets[1].tileheight)
-  if map.properties["wrap"] == "true" then
-    canvas:setWrap('repeat','repeat')
-  else
-    canvas:setWrap('clamp','clamp')
-  end
+  --local batch = love.graphics.newSpriteBatch(tileset.image,
+  --  map.width * map.height)
+  tileset.image:setFilter("nearest","linear")
+  local tile_batch = love.graphics.newSpriteBatch(tileset.image, 
+     math.ceil(love.graphics.getWidth()/(map.tilesets[tilelayer].tilewidth/5)) *
+     math.ceil(love.graphics.getHeight()/(map.tilesets[tilelayer].tileheight/5)))
+  --batch:clear()
+  --for x=1,map.layers[tilelayer].width do
+  --  for y=1,map.layers[tilelayer].height do
+  --    if map.layers[tilelayer].data[x][y] > 0 then
+  --      batch:addq(tileset.quads[map.layers[tilelayer].data[x][y]],
+  --        (x-1)*map.tilesets[tilelayer].tilewidth,
+  --        (y-1)*map.tilesets[tilelayer].tilewidth)
+  --    end
+  --  end
+  --end
+  --local canvas = love.graphics.newCanvas(map.width*map.tilesets[1].tilewidth, map.height*map.tilesets[1].tileheight)
+  --if map.properties["wrap"] == "true" then
+  --  canvas:setWrap('repeat','repeat')
+  --else
+  --  canvas:setWrap('clamp','clamp')
+  --end
   
   -- parallax
   local parallax ={}
@@ -149,17 +153,17 @@ M.new = function(arg)
   
   --prerender()
   object.prerender = function ()
-    canvas:clear()
-    canvas:renderTo(function()
-      love.graphics.setColor({255,255,255})
-      love.graphics.draw(batch,
-        0, 0, -- x, y
-        0, -- rotation
-        1, 1, -- scale_x, scale_y
-        0, 0, -- origin_x, origin_y
-        0, 0 -- shearing_x, shearing_y
-      )
-    end)
+  --  canvas:clear()
+  --  canvas:renderTo(function()
+  --    love.graphics.setColor({255,255,255})
+  --    love.graphics.draw(batch,
+  --      0, 0, -- x, y
+  --      0, -- rotation
+  --      1, 1, -- scale_x, scale_y
+  --      0, 0, -- origin_x, origin_y
+  --      0, 0 -- shearing_x, shearing_y
+  --    )
+  --  end)
   end
 
   -- render()
@@ -208,15 +212,40 @@ M.new = function(arg)
         0, 0 -- shearing_x, shearing_y
          )]]--
     end
-    love.graphics.drawq(canvas,
-      love.graphics.newQuad(camera.x - (love.graphics.getWidth() / 2), camera.y - (love.graphics.getHeight() / 2),
-                            screen_width, screen_height, canvas:getWidth()*entity.scale, canvas:getHeight()*entity.scale),
-      0, 0, -- x, y
+    --love.graphics.drawq(canvas,
+    --  love.graphics.newQuad(camera.x - (love.graphics.getWidth() / 2), camera.y - (love.graphics.getHeight() / 2),
+    --                        screen_width, screen_height, canvas:getWidth()*entity.scale, canvas:getHeight()*entity.scale),
+    --  0, 0, -- x, y
+    --  0, -- rotation
+    --  1, 1, -- scale_x, scale_y
+    --  0, 0, -- origin_x, origin_y
+    --  0, 0 -- shearing_x, shearing_y
+    --)
+    
+    tile_batch:clear()
+    local l = math.floor((camera.x - (screen_width / 2))/(map.tilesets[tilelayer].tilewidth*entity.scale))
+    local r = math.ceil((camera.x + (screen_width / 2))/(map.tilesets[tilelayer].tilewidth*entity.scale))
+    local t = math.floor((camera.y - (screen_height / 2))/(map.tilesets[tilelayer].tileheight*entity.scale))
+    local b = math.ceil((camera.y + (screen_height / 2))/(map.tilesets[tilelayer].tileheight*entity.scale))
+    for x=l,r do
+      for y=t,b do
+        normX = (x % map.layers[tilelayer].width) + 1
+        normY = (y % map.layers[tilelayer].height) + 1
+        if map.layers[tilelayer].data[normX][normY] > 0 then
+          tile_batch:addq(tileset.quads[map.layers[tilelayer].data[normX][normY]],
+                     x*map.tilesets[tilelayer].tilewidth,
+                     y*map.tilesets[tilelayer].tileheight)
+        end
+      end
+    end
+    love.graphics.setColor({255,255,255})
+    love.graphics.draw(tile_batch,
+      (screen_width / 2) - camera.x, (screen_height / 2) - camera.y, -- x, y
       0, -- rotation
-      1, 1, -- scale_x, scale_y
+      entity.scale, entity.scale, -- scale_x, scale_y
       0, 0, -- origin_x, origin_y
       0, 0 -- shearing_x, shearing_y
-    ) 
+    )
   end
 
   -- canContain(arg)
