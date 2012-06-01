@@ -76,6 +76,7 @@ M.new = function(arg)
       map.tilesets[tilelayer].imageheight
     )
   end
+
   --local batch = love.graphics.newSpriteBatch(tileset.image,
   --  map.width * map.height)
   tileset.image:setFilter("nearest","linear")
