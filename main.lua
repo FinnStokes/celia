@@ -1,5 +1,7 @@
 -- main.lua
 
+local pepperfish_profiler = require "pepperfish_profiler"
+
 local sandbox = require "sandbox"
 
 local gauge = {}
@@ -12,6 +14,9 @@ gauge.music = require "music"
 
 local tween = require "tween"
 
+local profiler = newProfiler('call')
+profiler:start()
+
 love.load = function ()
   local context = gauge.input.context.new({active = true})
   context.map = function (raw_in, map_in)
@@ -23,7 +28,7 @@ love.load = function ()
   gauge.event.subscribe("input",
     function (input)
       if input.actions.quit then
-        os.exit(0)
+        love.event.push("quit")
       end
     end
   )
@@ -87,7 +92,7 @@ love.load = function ()
   pcall(trusted_code)
 end
 
-love.update = function (dt)
+love.update = function (dt)  
   if dt > 1/60 then dt = 1/60 end
 
   local input = gauge.input.update(dt)
@@ -126,5 +131,8 @@ love.focus = function (f)
 end
 
 love.quit = function ()
-
+   profiler:stop()
+   local outfile = io.open( "profile.txt", "w+" )
+   profiler:report( outfile )
+   outfile:close()
 end
