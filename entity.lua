@@ -66,7 +66,7 @@ M.new = function (arg)
   else
     object.render = function ()
       love.graphics.setColor({0,255,0})
-      local position = object.position()
+      local position = object.getPosition()
       love.graphics.rectangle("fill", position.x, position.y, object.width(), object.height())
     end
   end
@@ -75,7 +75,7 @@ M.new = function (arg)
       self.velocity.y = self.velocity.y + dt*self.acceleration.y
       self.position.y = self.position.y + dt*self.velocity.y
       local map = state.get().map
-      local position = object.position()
+      local position = object.getPosition()
       local width = object.width()
       local height = object.height()
       local verticalStuck = false
@@ -112,7 +112,7 @@ M.new = function (arg)
         
         self.velocity.x = self.velocity.x + dt*self.acceleration.x
         self.position.x = self.position.x + dt*self.velocity.x
-        position = object.position()
+        position = object.getPosition()
         -- Horizontal collisions
         if self.velocity.x < 0 or object.transforming then
           if collide(map, position.x, position.y, position.x, position.y + height - 1) then
@@ -186,6 +186,9 @@ M.new = function (arg)
     end
     return {x=self.position.x*M.scale,y=self.position.y*M.scale}
   end
+  object.getPosition = function ()
+    return {x=self.position.x*M.scale,y=self.position.y*M.scale}
+  end
   object.velocity = function (arg)
     arg = arg or {}
     if arg.x then
@@ -243,8 +246,23 @@ M.new = function (arg)
 end
 
 M.render = function ()
-  for _,entity in ipairs(manager.entities) do
-    entity.render()
+  local camera = state.get().camera.position
+  local screen_width = love.graphics.getWidth() --native_mode.width
+  local screen_height = love.graphics.getHeight() --native_mode.height
+  local sl = camera.x - screen_width/2
+  local sr = camera.x + screen_width/2
+  local st = camera.y - screen_height/2
+  local sb = camera.y + screen_height/2
+  for i = 1,#manager.entities do
+    local entity = manager.entities[i]
+    local position = entity.getPosition()
+    local el = position.x
+    local er = el + entity.width()
+    local et = position.y
+    local eb = et + entity.height()
+    if er > sl and el < sr and eb > st and et < sb then
+      entity.render()
+    end
   end
 end
 
@@ -253,17 +271,19 @@ M.update = function (dt)
     entity.update(dt)
   end
   for i = 1,#manager.entities do
+    local e1 = manager.entities[i]
+    local p1 = e1.getPosition()
+    local l1 = p1.x
+    local r1 = p1.x + e1.width()
+    local t1 = p1.y
+    local b1 = p1.y + e1.height()
     for j = i,#manager.entities do
-      e1 = manager.entities[i]
-      l1 = e1.position().x
-      r1 = e1.position().x + e1.width()
-      t1 = e1.position().y
-      b1 = e1.position().y + e1.height()
-      e2 = manager.entities[j]
-      l2 = e2.position().x
-      r2 = e2.position().x + e2.width()
-      t2 = e2.position().y
-      b2 = e2.position().y + e2.height()
+      local e2 = manager.entities[j]
+      local p2 = e2.getPosition()
+      local l2 = p2.x
+      local r2 = p2.x + e2.width()
+      local t2 = p2.y
+      local b2 = p2.y + e2.height()
       if r1 >= l2 and r2 >= l1 and b1 >= t2 and b2 >= t1 then
         event.notify("entityCollision",{e1,e2})
         event.notify("entityCollision",{e2,e1})
@@ -271,9 +291,12 @@ M.update = function (dt)
     end
   end
   
-  for i,entity in ipairs(manager.entities) do
-    if entity.delete then
+  local i = 1
+  while i <= #manager.entities do
+    if manager.entities[i].delete then
       table.remove(manager.entities,i)
+    else
+      i = i + 1
     end
   end
 end
@@ -289,7 +312,7 @@ end
 -- end
 
 M.getList = function(filter)
-  result = {}
+  local result = {}
   for _,entity in ipairs(manager.entities) do
     local match = true
     for k,v in pairs(filter) do
@@ -315,7 +338,7 @@ M.registerType("tinyworlder", {
   dynamic=true,
   render = function (object, self)
     love.graphics.setColor({255,0,0})
-    local position = object.position()
+    local position = object.getPosition()
     local width = object.width()
     local height = object.height()
     love.graphics.rectangle("fill", position.x, position.y, spritesheet:getWidth(), spritesheet:getHeight())
@@ -324,7 +347,7 @@ M.registerType("tinyworlder", {
 M.registerType("grower", {
   sprite = love.graphics.newQuad(0,0,128,128,512,896),
   render = function (object, self)
-    local position = object.position()
+    local position = object.getPosition()
     local width = object.width()
     local height = object.height()
     love.graphics.setColor({255,255,255})
@@ -334,7 +357,7 @@ M.registerType("grower", {
 M.registerType("shrinker", {
   sprite = love.graphics.newQuad(128,0,128,128,spritesheet:getWidth(),spritesheet:getHeight()),
   render = function (object, self)
-    local position = object.position()
+    local position = object.getPosition()
     local width = object.width()
     local height = object.height()
     love.graphics.setColor({255,255,255})
@@ -343,7 +366,7 @@ M.registerType("shrinker", {
 })
 M.registerType("door", {
   render = function (object, self)
-    local position = object.position()
+    local position = object.getPosition()
     local width = object.width()
     local height = object.height()
     local sprite = nil

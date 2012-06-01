@@ -14,7 +14,7 @@ gauge.music = require "music"
 
 local tween = require "tween"
 
-local profiler = newProfiler('call')
+local profiler = newProfiler()
 profiler:start()
 
 love.load = function ()
