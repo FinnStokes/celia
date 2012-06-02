@@ -97,7 +97,6 @@ M.new = function(arg)
   end
   local canvas = love.graphics.newCanvas(screen_width, screen_height)
   
-  
   object.width = function ()
     return map.width * map.tilewidth
   end
@@ -196,7 +195,7 @@ M.new = function(arg)
   end
 
   -- render()
-  object.render = function ()
+  object.render = function (lagging)
     local camera = state.get().camera.position
     camera.x = math.floor(camera.x)
     camera.y = math.floor(camera.y)
@@ -204,7 +203,7 @@ M.new = function(arg)
     local screen_width = love.graphics.getWidth() --native_mode.width
     local screen_height = love.graphics.getHeight() --native_mode.height
     
-    if math.abs(lastParallaxUpdate - camera.x) >= 7 then
+    if not lagging and math.abs(lastParallaxUpdate - camera.x) >= 7 then
        object.prerender()
     end
     

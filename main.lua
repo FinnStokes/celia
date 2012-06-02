@@ -59,11 +59,11 @@ love.load = function ()
       })
     end
   end)
-  game_state.render = function ()
+  game_state.render = function (lagging)
     love.graphics.push()
     --love.graphics.scale(game_state.camera.scale)
     if game_state.map then
-      game_state.map.render()
+      game_state.map.render(lagging)
     end
     love.graphics.translate(
       (love.graphics.getWidth() / 2) - math.floor(game_state.camera.position.x),
@@ -96,12 +96,16 @@ frames = 0
 time = 0
 skipped = 0
 
+local lagging = false
 love.update = function (dt)  
   frames = frames + 1
   time = time + dt
   if dt > 1/60 then
     dt = 1/60
     skipped = skipped + 1
+    lagging = true
+  else
+     lagging = false
   end
 
   local input = gauge.input.update(dt)
@@ -116,7 +120,7 @@ love.update = function (dt)
 end
 
 love.draw = function ()
-  gauge.state.get().render()
+  gauge.state.get().render(lagging)
 end
 
 love.keypressed = function (key, unicode)
