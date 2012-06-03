@@ -109,7 +109,7 @@ love.update = function (dt)
     
     frames = frames + 1
     time = time + dt
-    updates = 1
+    local updates = 1
     if dt > 1/30 then
       lagging = true
     else

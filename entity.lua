@@ -78,11 +78,6 @@ M.new = function (arg)
     end
   end
   object.update = function (dt)
-    --type specific update first so player can adjust friction
-    if self.update then
-      self.update(object, self, dt)
-    end
-    
     if self.dynamic then
       self.position.y = self.position.y + dt*(self.velocity.y + self.acceleration.y*dt/2)
       self.velocity.y = self.velocity.y + dt*(self.acceleration.y - self.friction*self.velocity.y)
@@ -171,6 +166,11 @@ M.new = function (arg)
       if self.position.y > map.height() then
         self.position.y = self.position.y - map.height()
       end
+    end
+
+    --moved type specific update to end. this may cause problems with friction/variable
+    if self.update then
+      self.update(object, self, dt)
     end
   end
   -- object.scale = function (s)
