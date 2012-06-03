@@ -159,10 +159,8 @@ gauge.entity.registerType("player", {
     local camera = gauge.state.get().camera
     if object.float then
        if self.velocity.y < 0 then
-         print("bigjump")
          self.friction = 0
        else
-         print("falling")
          self.friction = 4*friction
        end
     else
@@ -296,7 +294,6 @@ end
 gauge.event.subscribe("input",
   function (input)
     if input.actions.jump and not (growing or shrinking) then
-       print("jump")
       player.float = true
       if not player.falling then
         player.velocity({y = -jump_v*math.sqrt(gauge.entity.scale)})
@@ -304,7 +301,6 @@ gauge.event.subscribe("input",
       end
     end
     if input.actions.fall then
-       print("fall")
       player.float = false
     end
     if input.actions.left and not (growing or shrinking) then
@@ -334,7 +330,7 @@ gauge.event.subscribe("entityCollision",
     if entities[1] == player then
       if entities[2].type == "grower" and scale > 1 / 5  then
         tween.stop(scaleTween)
-        scale = 1/(1/scale + 1)
+        scale = scale/2
         scaleTween = tween(1,gauge.entity,{scale = scale},'linear',endScale)
         entities[2].delete = true
         growing = true
@@ -344,7 +340,7 @@ gauge.event.subscribe("entityCollision",
       end
       if entities[2].type == "shrinker" and scale < 1 then
         tween.stop(scaleTween)
-        scale = 1/(1/scale - 1)
+        scale = scale*2
         scaleTween = tween(1,gauge.entity,{scale = scale},'linear',endScale)
         entities[2].delete = true
         growing = false
