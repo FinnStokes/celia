@@ -102,6 +102,11 @@ skipped = 0
 local lagging = false
 love.update = function (dt)
   if not loading then
+    local input = gauge.input.update(dt)
+    if input then
+      gauge.event.notify("input", input)
+    end
+    
     frames = frames + 1
     time = time + dt
     updates = 1
@@ -122,16 +127,12 @@ love.update = function (dt)
       end
     end
     
+    local state = gauge.state.get()
     for i = 1,updates do
-      local input = gauge.input.update(dt)
-      if input then
-        gauge.event.notify("input", input)
-      end
-    
       if dt > 0 then
         tween.update(dt)
       end
-      gauge.state.get().update(dt)
+      state.update(dt)
     end
   else
     loading = false
