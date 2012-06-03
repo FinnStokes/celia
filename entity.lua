@@ -19,7 +19,7 @@ M.new = function (arg)
     position = {x = 0, y = 0},
     velocity = {x = 0, y = 0},
     acceleration = {x = 0, y = 0},
-    indent = 0,
+    inset = 0,
     friction = 0,
     scaled = true,
     dynamic = false,
@@ -54,8 +54,8 @@ M.new = function (arg)
   end
   
   if not self.collisionRect then
-    self.collisionRect = { left = self.indent*self.width, top = self.indent*self.height,
-                           right = (1-self.indent)*self.width, bottom = (1-self.indent)*self.height }
+    self.collisionRect = { left = self.inset*self.width, top = self.inset*self.height,
+                           right = (1-self.inset)*self.width, bottom = (1-self.inset)*self.height }
   end
   
   local object = {}
@@ -380,6 +380,7 @@ M.registerType("tinyworlder", {
 })
 M.registerType("grower", {
   sprite = love.graphics.newQuad(0,0,128,128,512,896),
+  inset=0.1,
   render = function (object, self)
     local position = object.getPosition()
     local width = object.width()
@@ -390,6 +391,7 @@ M.registerType("grower", {
 })
 M.registerType("shrinker", {
   sprite = love.graphics.newQuad(128,0,128,128,spritesheet:getWidth(),spritesheet:getHeight()),
+  inset=0.1,
   render = function (object, self)
     local position = object.getPosition()
     local width = object.width()
