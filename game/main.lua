@@ -1,6 +1,7 @@
 local walk_v = 512
-local jump_height = 272
+local jump_height = 320 --272
 local jump_length = 384
+local friction = 4
 
 local jump_v = 4*walk_v*jump_height/jump_length
 local g = jump_v*jump_v/(2*jump_height)
@@ -11,6 +12,11 @@ context.map = function (raw_in, map_in)
       raw_in.key.pressed[" "] or
       raw_in.joystick.pressed[1] then
     map_in.actions["jump"] = true
+  end
+  if raw_in.key.released["up"] or
+      raw_in.key.released[" "] or
+      raw_in.joystick.released[1] then
+    map_in.actions["fall"] = true
   end
   
   if raw_in.key.pressed["return"] or
@@ -86,6 +92,7 @@ gauge.entity.registerType("player", {
   height=118,
   scaled=false,
   dynamic=true,
+  friction = friction,
   image=love.graphics.newImage("game/celia.png"),
   animations = {
     idle = {
@@ -150,6 +157,17 @@ gauge.entity.registerType("player", {
   update=function(object, self, dt)
     local map = gauge.state.get().map
     local camera = gauge.state.get().camera
+    if object.float then
+       if self.velocity.y < 0 then
+         print("bigjump")
+         self.friction = 0
+       else
+         print("falling")
+         self.friction = 4*friction
+       end
+    else
+      self.friction = friction
+    end
     if map and map.properties and map.properties().credits then
       self.position = { x = 0, y = 0 }
       self.velocity = { x = 0, y = 0 }
@@ -277,11 +295,17 @@ end
 
 gauge.event.subscribe("input",
   function (input)
-     if input.actions.jump and not (growing or shrinking) then
+    if input.actions.jump and not (growing or shrinking) then
+       print("jump")
+      player.float = true
       if not player.falling then
         player.velocity({y = -jump_v*math.sqrt(gauge.entity.scale)})
         player.falling = true
       end
+    end
+    if input.actions.fall then
+       print("fall")
+      player.float = false
     end
     if input.actions.left and not (growing or shrinking) then
       player.velocity({x = -walk_v*math.sqrt(gauge.entity.scale)})
