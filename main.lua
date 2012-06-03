@@ -17,6 +17,8 @@ local tween = require "tween"
 local profiler = newProfiler()
 profiler:start()
 
+local loading = false
+
 love.load = function ()
   local context = gauge.input.context.new({active = true})
   context.map = function (raw_in, map_in)
@@ -42,6 +44,7 @@ love.load = function ()
 
   local game_state = gauge.state.new()
   gauge.event.subscribe("loadMap", function (arg)
+    loading = true
     if love.filesystem.exists(arg.file) then
       game_state.map = gauge.map.new({
         data = love.filesystem.load(arg.file)
@@ -97,26 +100,42 @@ time = 0
 skipped = 0
 
 local lagging = false
-love.update = function (dt)  
-  frames = frames + 1
-  time = time + dt
-  if dt > 1/60 then
-    dt = 1/60
-    skipped = skipped + 1
-    lagging = true
-  else
-     lagging = false
-  end
+love.update = function (dt)
+  if not loading then
+    frames = frames + 1
+    time = time + dt
+    updates = 1
+    if dt > 1/30 then
+      lagging = true
+    else
+      lagging = false
+    end
 
-  local input = gauge.input.update(dt)
-  if input then
-    gauge.event.notify("input", input)
+    if dt > 1/60 then
+      updates = math.ceil(dt*60)
+      if updates > 8 then
+        updates = 8
+        dt = 1/60
+        skipped = skipped + 1
+      else
+         dt = dt/updates
+      end
+    end
+    
+    for i = 1,updates do
+      local input = gauge.input.update(dt)
+      if input then
+        gauge.event.notify("input", input)
+      end
+    
+      if dt > 0 then
+        tween.update(dt)
+      end
+      gauge.state.get().update(dt)
+    end
+  else
+    loading = false
   end
-  
-  if dt > 0 then
-    tween.update(dt)
-  end
-  gauge.state.get().update(dt)
 end
 
 love.draw = function ()

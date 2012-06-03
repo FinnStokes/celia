@@ -19,6 +19,7 @@ M.new = function (arg)
     position = {x = 0, y = 0},
     velocity = {x = 0, y = 0},
     acceleration = {x = 0, y = 0},
+    friction = 0,
     scaled = true,
     dynamic = false,
   }
@@ -71,9 +72,14 @@ M.new = function (arg)
     end
   end
   object.update = function (dt)
+    --type specific update first so player can adjust friction
+    if self.update then
+      self.update(object, self, dt)
+    end
+    
     if self.dynamic then
-      self.velocity.y = self.velocity.y + dt*self.acceleration.y
-      self.position.y = self.position.y + dt*self.velocity.y
+      self.position.y = self.position.y + dt*(self.velocity.y + self.acceleration.y*dt/2)
+      self.velocity.y = self.velocity.y + dt*(self.acceleration.y - self.friction*self.velocity.y)
       local map = state.get().map
       local position = object.getPosition()
       local width = object.width()
@@ -110,8 +116,8 @@ M.new = function (arg)
           end
         end
         
+        self.position.x = self.position.x + dt*(self.velocity.x + dt*self.acceleration.x/2)
         self.velocity.x = self.velocity.x + dt*self.acceleration.x
-        self.position.x = self.position.x + dt*self.velocity.x
         position = object.getPosition()
         -- Horizontal collisions
         if self.velocity.x < 0 or object.transforming then
@@ -159,10 +165,6 @@ M.new = function (arg)
       if self.position.y > map.height() then
         self.position.y = self.position.y - map.height()
       end
-    end
-    
-    if self.update then
-      self.update(object, self, dt)
     end
   end
   -- object.scale = function (s)
