@@ -1,7 +1,7 @@
 local walk_v = 512
 local jump_height = 320 --272
 local jump_length = 384
-local friction = 4
+local friction = 2
 
 local jump_v = 4*walk_v*jump_height/jump_length
 local g = jump_v*jump_v/(2*jump_height)
