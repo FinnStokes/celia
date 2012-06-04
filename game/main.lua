@@ -88,8 +88,9 @@ celiaTheme.play()
 
 gauge.entity.registerType("player", {
   acceleration = { x = 0, y = g },
-  width=38,
-  height=118,
+  width=70,
+  height=128,
+  collisionRect = { left = 16, top = 10, right = 54, bottom = 128 },
   scaled=false,
   dynamic=true,
   friction = friction,
@@ -151,7 +152,7 @@ gauge.entity.registerType("player", {
       scaleFlip = -1
       originFlip = 64
     end
-    love.graphics.drawq(self.image,sprite,position.x-16,position.y-10,0,
+    love.graphics.drawq(self.image,sprite,position.x,position.y,0,
     scaleFlip, 1, originFlip, 0)
   end,
   update=function(object, self, dt)
@@ -351,13 +352,13 @@ gauge.event.subscribe("entityCollision",
       if entities[2].type == "door" then
         local size = entities[2].height()
         if math.abs(128 - size) < 1 then
-	  local player_pos = player.getPosition()
-	  local door_pos = entities[2].getPosition()
-          if player_pos.x >= door_pos.x and
-              player_pos.x + player.width() <= door_pos.x + entities[2].width() and
-              player_pos.y >= door_pos.y and
-              player_pos.y + player.height() <= door_pos.y + entities[2].height() then
-            nextLevel()            
+	  local player_rect = player.getCollisionRect()
+	  local door_rect = entities[2].getCollisionRect()
+          if player_rect.left >= door_rect.left and
+              player_rect.right <= door_rect.right and
+              player_rect.top >= door_rect.top and
+              player_rect.bottom <= door_rect.bottom then
+            nextLevel()
           end
         elseif 128 < size then
           gauge.event.notify("animation", {

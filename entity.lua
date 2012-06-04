@@ -19,6 +19,7 @@ M.new = function (arg)
     position = {x = 0, y = 0},
     velocity = {x = 0, y = 0},
     acceleration = {x = 0, y = 0},
+    indent = 0,
     friction = 0,
     scaled = true,
     dynamic = false,
@@ -52,6 +53,11 @@ M.new = function (arg)
     return false
   end
   
+  if not self.collisionRect then
+    self.collisionRect = { left = self.indent*self.width, top = self.indent*self.height,
+                           right = (1-self.indent)*self.width, bottom = (1-self.indent)*self.height }
+  end
+  
   local object = {}
   object.type = arg.type
   object.falling = true
@@ -81,7 +87,7 @@ M.new = function (arg)
       self.position.y = self.position.y + dt*(self.velocity.y + self.acceleration.y*dt/2)
       self.velocity.y = self.velocity.y + dt*(self.acceleration.y - self.friction*self.velocity.y)
       local map = state.get().map
-      local position = object.getPosition()
+      local rect = object.getCollisionRect()
       local width = object.width()
       local height = object.height()
       local verticalStuck = false
@@ -89,26 +95,26 @@ M.new = function (arg)
       if map then
         -- Vertical collisions
         if self.velocity.y < 0 or object.transforming then
-          if collide(map, position.x + 1, position.y, position.x + width - 1, position.y) then
-            self.position.y = (map.getTileBounds(map.getTileIndices(position)).bottom)
+          if collide(map, rect.left + 1, rect.top, rect.right - 1, rect.top) then
+            self.position.y = (map.getTileBounds(map.getTileIndices({x = rect.left, y = rect.top})).bottom) - self.collisionRect.top
             --if self.scaled then
             self.position.y = self.position.y/M.scale + 1
             --end
             self.velocity.y = 0
-            if collide(map, position.x + 1, position.y + height, position.x + width - 1, position.y + height) then
+            if collide(map, rect.left + 1, rect.bottom, rect.right - 1, rect.bottom) then
               verticalStuck = true
             end
           end
         end
         if self.velocity.y > 0 or object.transforming then
-          if collide(map, position.x + 1, position.y + height, position.x + width - 1, position.y + height) then
-            self.position.y = (map.getTileBounds(map.getTileIndices({x = position.x, y = position.y + height})).top - height)
+          if collide(map, rect.left + 1, rect.bottom, rect.right - 1, rect.bottom) then
+            self.position.y = (map.getTileBounds(map.getTileIndices({x = rect.left, y = rect.bottom})).top) - self.collisionRect.bottom
             --if self.scaled then
             self.position.y = self.position.y/M.scale
             --end
             self.velocity.y = 0
             object.falling = false
-            if collide(map, position.x + 1, position.y, position.x + width - 1, position.y) then
+            if collide(map, rect.left + 1, rect.top, rect.right - 1, rect.top) then
               verticalStuck = true
             end
           else
@@ -118,37 +124,37 @@ M.new = function (arg)
         
         self.position.x = self.position.x + dt*(self.velocity.x + dt*self.acceleration.x/2)
         self.velocity.x = self.velocity.x + dt*self.acceleration.x
-        position = object.getPosition()
+        rect = object.getCollisionRect()
         -- Horizontal collisions
         if self.velocity.x < 0 or object.transforming then
-          if collide(map, position.x, position.y, position.x, position.y + height - 1) then
-            self.position.x = (map.getTileBounds(map.getTileIndices(position)).right)
+          if collide(map, rect.left, rect.top, rect.left, rect.bottom - 1) then
+            self.position.x = (map.getTileBounds(map.getTileIndices({x = rect.left, y = rect.top})).right) - self.collisionRect.left
             --if self.scaled then
             self.position.x = self.position.x/M.scale
             --end
             --velocity.x = 0
-            if collide(map, position.x + width, position.y, position.x + width, position.y + height - 1) then
+            if collide(map, rect.right, rect.top, rect.right, rect.bottom - 1) then
               event.notify("entityStuck",object)
               horizontalStuck = true
             end
           end
         end
         if self.velocity.x > 0 or object.transforming then
-          if collide(map, position.x + width, position.y, position.x + width, position.y + height - 1) then
-            self.position.x = (map.getTileBounds(map.getTileIndices({x = position.x + width, y = position.y})).left - width)
+          if collide(map, rect.right, rect.top, rect.right, rect.bottom - 1) then
+            self.position.x = (map.getTileBounds(map.getTileIndices({x = rect.right, y = rect.top})).left) - self.collisionRect.right
             --if self.scaled then
             self.position.x = self.position.x/M.scale
             --end
             --self.velocity.x = 0
-            if not horizontalStuck and collide(map, position.x, position.y, position.x, position.y + height - 1) then
+            if not horizontalStuck and collide(map, rect.left, rect.top, rect.left, rect.bottom - 1) then
               event.notify("entityStuck",object)
               horizontalStuck = true
             end
           end
         end
         if verticalStuck and not horizontalStuck and
-           collide(map, position.x + 1, position.y,          position.x + width - 1, position.y) and
-           collide(map, position.x + 1, position.y + height, position.x + width - 1, position.y + height) then
+           collide(map, rect.left + 1, rect.top,    rect.right - 1, rect.top) and
+           collide(map, rect.left + 1, rect.bottom, rect.right - 1, rect.bottom) then
            event.notify("entityStuck",object)
         end
       end
@@ -203,6 +209,23 @@ M.new = function (arg)
   end
   object.getPosition = function ()
     return {x=self.position.x*M.scale,y=self.position.y*M.scale}
+  end
+  object.getCollisionRect = function ()
+    if self.scaled then
+      local l = self.collisionRect.left + self.position.x
+      local t = self.collisionRect.top + self.position.y
+      local r = self.collisionRect.right + self.position.x
+      local b = self.collisionRect.bottom + self.position.y
+      return {left = l*M.scale, top = t*M.scale, right = r*M.scale, bottom = b*M.scale}
+    else
+      local x = self.position.x*M.scale
+      local y = self.position.y*M.scale
+      local l = self.collisionRect.left + x
+      local t = self.collisionRect.top + y
+      local r = self.collisionRect.right + x
+      local b = self.collisionRect.bottom + y
+      return {left = l, top = t, right = r, bottom = b}
+    end
   end
   object.velocity = function (arg)
     arg = arg or {}
@@ -288,20 +311,12 @@ M.update = function (dt)
   for i = 1,#manager.entities do
     local e1 = manager.entities[i]
     if not (e1 == nil) then
-      local p1 = e1.getPosition()
-      local l1 = p1.x
-      local r1 = p1.x + e1.width()
-      local t1 = p1.y
-      local b1 = p1.y + e1.height()
+      local r1 = e1.getCollisionRect()
       for j = i,#manager.entities do
         local e2 = manager.entities[j]
         if not (e2 == nil) then
-          local p2 = e2.getPosition()
-          local l2 = p2.x
-          local r2 = p2.x + e2.width()
-          local t2 = p2.y
-          local b2 = p2.y + e2.height()
-          if r1 >= l2 and r2 >= l1 and b1 >= t2 and b2 >= t1 then
+          local r2 = e2.getCollisionRect()
+          if r1.right >= r2.left and r2.right >= r1.left and r1.bottom >= r2.top and r2.bottom >= r1.top then
             event.notify("entityCollision",{e1,e2})
             event.notify("entityCollision",{e2,e1})
           end
