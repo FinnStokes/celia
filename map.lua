@@ -95,7 +95,11 @@ M.new = function(arg)
       break
     end
   end
-  local canvas = love.graphics.newCanvas(screen_width, screen_height)
+
+  local status, canvas = pcall(love.graphics.newCanvas)
+  if not status or not (type(canvas) == 'userdata') then
+    canvas = nil
+  end
   
   object.width = function ()
     return map.width * map.tilewidth
@@ -142,56 +146,58 @@ M.new = function(arg)
   local lastParallaxUpdate = 0
   --prerender()
   object.prerender = function ()
-    canvas:clear()
-    canvas:renderTo(function()
-      local camera = state.get().camera.position
-      camera.x = math.floor(camera.x)
-      camera.y = math.floor(camera.y)
-      lastParallaxUpdate = camera.x
-      love.graphics.setColor({255,255,255})
-      local screen_width = love.graphics.getWidth() --native_mode.width
-      local screen_height = love.graphics.getHeight() --native_mode.height
-      for i=1,#parallax do
-         parallax[i]:setWrap('repeat','repeat')
-         local image = parallax[i]
-         -- local width = parallax[i]:getWidth()
-         -- local height = parallax[i]:getHeight()
-         -- local x = (i / 10) * (camera.x - (screen_width / 2))
-         -- local y = (height - (screen_height / 2))
-         local width = screen_width
-         local height = screen_height
-         local x = (i / 20) * (camera.x - (screen_width / 2))
-         local y = 0
-         if x < screen_width and x + width > 0 then
-           love.graphics.drawq(parallax[i],
-             -- love.graphics.newQuad(x,y,screen_width,screen_height,width*entity.scale,height*entity.scale),
-             love.graphics.newQuad(x,y,screen_width,screen_height,width,height),
-             0, -- x
-             0, -- y
-             0, -- rotation
-             1, 1, -- scale_x, scale_y
-             0, 0, -- origin_x, origin_y
-             0, 0 -- shearing_x, shearing_y
-           )
-         end
-         --[[love.graphics.draw(parallax[i],
-           x - parallax[i]:getWidth(), -- x
-           y, -- y
-           0, -- rotation
-           1, 1, -- scale_x, scale_y
-           0, 0, -- origin_x, origin_y
-           0, 0 -- shearing_x, shearing_y
-           )
-         love.graphics.draw(parallax[i],
-           x + parallax[i]:getWidth(), -- x
-           y, -- y
-           0, -- rotation
-           1, 1, -- scale_x, scale_y
-           0, 0, -- origin_x, origin_y
-           0, 0 -- shearing_x, shearing_y
-         )]]--
-      end
-    end)
+    if canvas then
+      canvas:clear()
+      canvas:renderTo(function()
+        local camera = state.get().camera.position
+        camera.x = math.floor(camera.x)
+        camera.y = math.floor(camera.y)
+        lastParallaxUpdate = camera.x
+        love.graphics.setColor({255,255,255})
+        local screen_width = love.graphics.getWidth() --native_mode.width
+        local screen_height = love.graphics.getHeight() --native_mode.height
+        for i=1,#parallax do
+          parallax[i]:setWrap('repeat','repeat')
+          local image = parallax[i]
+          -- local width = parallax[i]:getWidth()
+          -- local height = parallax[i]:getHeight()
+          -- local x = (i / 10) * (camera.x - (screen_width / 2))
+          -- local y = (height - (screen_height / 2))
+          local width = screen_width
+          local height = screen_height
+          local x = (i / 20) * (camera.x - (screen_width / 2))
+          local y = 0
+          if x < screen_width and x + width > 0 then
+            love.graphics.drawq(parallax[i],
+              -- love.graphics.newQuad(x,y,screen_width,screen_height,width*entity.scale,height*entity.scale),
+              love.graphics.newQuad(x,y,screen_width,screen_height,width,height),
+              0, -- x
+              0, -- y
+              0, -- rotation
+              1, 1, -- scale_x, scale_y
+              0, 0, -- origin_x, origin_y
+              0, 0 -- shearing_x, shearing_y
+            )
+          end
+          --[[love.graphics.draw(parallax[i],
+            x - parallax[i]:getWidth(), -- x
+            y, -- y
+            0, -- rotation
+            1, 1, -- scale_x, scale_y
+            0, 0, -- origin_x, origin_y
+            0, 0 -- shearing_x, shearing_y
+            )
+            love.graphics.draw(parallax[i],
+            x + parallax[i]:getWidth(), -- x
+            y, -- y
+            0, -- rotation
+            1, 1, -- scale_x, scale_y
+            0, 0, -- origin_x, origin_y
+            0, 0 -- shearing_x, shearing_y
+            )]]--
+        end
+      end)
+    end
   end
 
   -- render()
@@ -202,18 +208,45 @@ M.new = function(arg)
     love.graphics.setColor({255,255,255})
     local screen_width = love.graphics.getWidth() --native_mode.width
     local screen_height = love.graphics.getHeight() --native_mode.height
+   
+    if canvas then
+      if not lagging and math.abs(lastParallaxUpdate - camera.x) >= 7 then
+        object.prerender()
+      end
     
-    if not lagging and math.abs(lastParallaxUpdate - camera.x) >= 7 then
-       object.prerender()
+      love.graphics.draw(canvas,
+        0, 0, -- x, y
+        0, -- rotation
+        1, 1, -- scale_x, scale_y
+        0, 0, -- origin_x, origin_y
+        0, 0 -- shearing_x, shearing_y
+      )
+    else
+      for i=1,#parallax do
+        parallax[i]:setWrap('repeat','repeat')
+        local image = parallax[i]
+        -- local width = parallax[i]:getWidth()
+        -- local height = parallax[i]:getHeight()
+        -- local x = (i / 10) * (camera.x - (screen_width / 2))
+        -- local y = (height - (screen_height / 2))
+        local width = screen_width
+        local height = screen_height
+        local x = (i / 20) * (camera.x - (screen_width / 2))
+        local y = 0
+        if x < screen_width and x + width > 0 then
+          love.graphics.drawq(parallax[i],
+            -- love.graphics.newQuad(x,y,screen_width,screen_height,width*entity.scale,height*entity.scale),
+            love.graphics.newQuad(x,y,screen_width,screen_height,width,height),
+            0, -- x
+            0, -- y
+            0, -- rotation
+            1, 1, -- scale_x, scale_y
+            0, 0, -- origin_x, origin_y
+            0, 0 -- shearing_x, shearing_y
+          )
+        end
+      end
     end
-    
-    love.graphics.draw(canvas,
-      0, 0, -- x, y
-      0, -- rotation
-      1, 1, -- scale_x, scale_y
-      0, 0, -- origin_x, origin_y
-      0, 0 -- shearing_x, shearing_y
-    )
     
     tile_batch:clear()
     local l = math.floor((camera.x - (screen_width / 2))/(map.tilesets[tilelayer].tilewidth*entity.scale))
