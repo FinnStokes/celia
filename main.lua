@@ -30,7 +30,8 @@ love.load = function ()
   gauge.event.subscribe("input",
     function (input)
       if input.actions.quit then
-        love.event.push("quit")
+        local quit = love.event.quit or love.event.push
+        quit("q")
       end
     end
   )
