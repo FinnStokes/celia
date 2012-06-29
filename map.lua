@@ -1,6 +1,7 @@
 -- map.lua
 local entity = require "entity"
 local state = require "state"
+local event = require "event"
 
 local M = {}
 
@@ -159,17 +160,12 @@ M.new = function(arg)
         for i=1,#parallax do
           parallax[i]:setWrap('repeat','repeat')
           local image = parallax[i]
-          -- local width = parallax[i]:getWidth()
-          -- local height = parallax[i]:getHeight()
-          -- local x = (i / 10) * (camera.x - (screen_width / 2))
-          -- local y = (height - (screen_height / 2))
           local width = screen_width
           local height = screen_height
           local x = (i / 20) * (camera.x - (screen_width / 2))
           local y = 0
           if x < screen_width and x + width > 0 then
             love.graphics.drawq(parallax[i],
-              -- love.graphics.newQuad(x,y,screen_width,screen_height,width*entity.scale,height*entity.scale),
               love.graphics.newQuad(x,y,screen_width,screen_height,width,height),
               0, -- x
               0, -- y
@@ -179,22 +175,6 @@ M.new = function(arg)
               0, 0 -- shearing_x, shearing_y
             )
           end
-          --[[love.graphics.draw(parallax[i],
-            x - parallax[i]:getWidth(), -- x
-            y, -- y
-            0, -- rotation
-            1, 1, -- scale_x, scale_y
-            0, 0, -- origin_x, origin_y
-            0, 0 -- shearing_x, shearing_y
-            )
-            love.graphics.draw(parallax[i],
-            x + parallax[i]:getWidth(), -- x
-            y, -- y
-            0, -- rotation
-            1, 1, -- scale_x, scale_y
-            0, 0, -- origin_x, origin_y
-            0, 0 -- shearing_x, shearing_y
-            )]]--
         end
       end)
     end
@@ -324,6 +304,15 @@ M.new = function(arg)
     loadEntities(map, objectgroup)
     entity.scale = 1
   end
+  
+  object.tileCollision = function (arg)
+    local tile = object.getTileProperties(arg)
+    if tile.destructible then
+      map.layers[tilelayer].data[arg.x][arg.y] = tile.destroyTo
+    end
+  end
+  
+  event.register("tileCollision", object.tileCollision)
   
   object.prerender()
   
