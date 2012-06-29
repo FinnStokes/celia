@@ -70,6 +70,24 @@
     <property name="solid" value="true"/>
    </properties>
   </tile>
+  <tile id="20">
+   <properties>
+    <property name="destroyTo" value="45"/>
+    <property name="destructible" value="true"/>
+   </properties>
+  </tile>
+  <tile id="21">
+   <properties>
+    <property name="destroyTo" value="46"/>
+    <property name="destructible" value="true"/>
+   </properties>
+  </tile>
+  <tile id="22">
+   <properties>
+    <property name="destroyTo" value="47"/>
+    <property name="destructible" value="true"/>
+   </properties>
+  </tile>
   <tile id="24">
    <properties>
     <property name="solid" value="true"/>

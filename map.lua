@@ -308,11 +308,11 @@ M.new = function(arg)
   object.tileCollision = function (arg)
     local tile = object.getTileProperties(arg)
     if tile.destructible then
-      map.layers[tilelayer].data[arg.x][arg.y] = tile.destroyTo
+      map.layers[tilelayer].data[arg.x][arg.y] = tile.destroyTo or 0
     end
   end
   
-  event.register("tileCollision", object.tileCollision)
+  event.subscribe("tileCollision", object.tileCollision)
   
   object.prerender()
   
