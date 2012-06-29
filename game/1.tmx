@@ -262,6 +262,7 @@
   <tile id="20">
    <properties>
     <property name="destroyTo" value="65"/>
+    <property name="destroyWeight" value="1"/>
     <property name="destructible" value="true"/>
    </properties>
   </tile>

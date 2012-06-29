@@ -308,7 +308,9 @@ M.new = function(arg)
   object.tileCollision = function (arg)
     local tile = object.getTileProperties(arg)
     if tile.destructible then
-      map.layers[tilelayer].data[arg.x][arg.y] = tile.destroyTo or 0
+      if not tile.destroyWeight or arg.entity.weight() >= tile.destroyWeight then
+        map.layers[tilelayer].data[arg.x][arg.y] = tile.destroyTo or 0
+      end
     end
   end
   

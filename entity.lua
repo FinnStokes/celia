@@ -16,6 +16,7 @@ M.new = function (arg)
   local self = {
     width = 30,
     height = 30,
+    weight = 0,
     position = {x = 0, y = 0},
     velocity = {x = 0, y = 0},
     acceleration = {x = 0, y = 0},
@@ -280,6 +281,13 @@ M.new = function (arg)
       return self.width*M.scale
     else
       return self.width
+    end
+  end
+  object.height = function ()
+    if self.scaled then
+      return self.width
+    else
+      return self.width*M.scale
     end
   end
   
