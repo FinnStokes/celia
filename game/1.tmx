@@ -241,6 +241,24 @@
    <property name="solid" value="true"/>
   </properties>
   <image source="Magic-Forest.png" width="1536" height="1152"/>
+  <tile id="20">
+   <properties>
+    <property name="destroyTo" value="65"/>
+    <property name="destructible" value="true"/>
+   </properties>
+  </tile>
+  <tile id="21">
+   <properties>
+    <property name="destroyTo" value="65"/>
+    <property name="destructible" value="true"/>
+   </properties>
+  </tile>
+  <tile id="22">
+   <properties>
+    <property name="destroyTo" value="65"/>
+    <property name="destructible" value="true"/>
+   </properties>
+  </tile>
   <tile id="24">
    <properties>
     <property name="solid" value="true"/>

@@ -85,6 +85,11 @@ M.new = function (arg)
       local rect = object.getCollisionRect()
       local width = object.width()
       local height = object.height()
+      local left = map.getTileIndices({x = rect.left + 1, y = rect.bottom})
+      local right = map.getTileIndices({x = rect.right - 1, y = rect.bottom})
+      for x = left.x,right.x do
+        event.notify("tileCollision", {x = x, y = left.y, entity = object})
+      end
       local verticalStuck = false
       local horizontalStuck = false
       if map then
