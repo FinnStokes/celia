@@ -283,11 +283,11 @@ M.new = function (arg)
       return self.width
     end
   end
-  object.height = function ()
+  object.weight = function ()
     if self.scaled then
-      return self.width
+      return self.weight
     else
-      return self.width*M.scale
+      return self.weight/M.scale
     end
   end
   

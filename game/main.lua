@@ -26,7 +26,7 @@ context.map = function (raw_in, map_in)
   end
 
   -- Joystick movement
-  if raw_in.joystick.axis and raw_in.joystick.axis[1] then
+  --[[if raw_in.joystick.axis and raw_in.joystick.axis[1] then
     if raw_in.joystick.axis[1] < -0.2 then
       map_in.actions["left"] = true
     elseif raw_in.joystick.axis[1] > 0.2 then
@@ -34,7 +34,7 @@ context.map = function (raw_in, map_in)
     else
       map_in.actions["stop"] = true
     end
-  end
+  end]]--
 
   -- Left Key
   if raw_in.key.pressed["left"] then
@@ -90,6 +90,7 @@ gauge.entity.registerType("player", {
   acceleration = { x = 0, y = g },
   width=70,
   height=128,
+  weight=1,
   collisionRect = { left = 16, top = 10, right = 54, bottom = 128 },
   scaled=false,
   dynamic=true,
