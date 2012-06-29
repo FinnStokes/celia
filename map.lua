@@ -50,14 +50,16 @@ M.new = function(arg)
   end
   
   -- tile data
-  local data = {}
-  for x=1,map.layers[1].width do
-    data[x] = {}
-    for y=1,map.layers[1].height do
-      data[x][y] = map.layers[1].data[x + ((y - 1) * map.layers[tilelayer].width)]
+  local tiledata = {}
+  local loadTiledata = function ()
+    for x=1,map.layers[tilelayer].width do
+      tiledata[x] = {}
+      for y=1,map.layers[tilelayer].height do
+	tiledata[x][y] = map.layers[tilelayer].data[x + ((y - 1) * map.layers[tilelayer].width)]
+      end
     end
   end
-  map.layers[1].data = data
+  loadTiledata()
   
   loadEntities(map, objectgroup)
   
@@ -123,7 +125,7 @@ M.new = function(arg)
         arg.y > map.layers[tilelayer].height then
       return {}
     end
-    local tile_id = map.layers[tilelayer].data[arg.x][arg.y]
+    local tile_id = tiledata[arg.x][arg.y]
     local properties = {}
     if map.tilesets[tilelayer].tiles[tile_id] then
       for k,v in pairs(map.tilesets[tilelayer].tiles[tile_id]) do
@@ -241,8 +243,8 @@ M.new = function(arg)
       for y=t,b do
         normX = (x % map.layers[tilelayer].width) + 1
         normY = (y % map.layers[tilelayer].height) + 1
-        if map.layers[tilelayer].data[normX][normY] > 0 then
-          tile_batch:addq(tileset.quads[map.layers[tilelayer].data[normX][normY]],
+        if tiledata[normX][normY] > 0 then
+          tile_batch:addq(tileset.quads[tiledata[normX][normY]],
                      x*map.tilesets[tilelayer].tilewidth,
                      y*map.tilesets[tilelayer].tileheight)
         end
@@ -302,6 +304,7 @@ M.new = function(arg)
   object.reset = function ()
     entity.clearAll()
     loadEntities(map, objectgroup)
+    loadTiledata()
     entity.scale = 1
   end
   
@@ -311,7 +314,7 @@ M.new = function(arg)
       print(tile.destroyWeight)
       print(arg.entity.weight())
       if not tile.destroyWeight or arg.entity.weight() >= tile.destroyWeight then
-        map.layers[tilelayer].data[arg.x][arg.y] = tile.destroyTo or 0
+        tiledata[arg.x][arg.y] = tile.destroyTo or 0
       end
     end
   end

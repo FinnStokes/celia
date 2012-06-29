@@ -86,13 +86,15 @@ M.new = function (arg)
       local rect = object.getCollisionRect()
       local width = object.width()
       local height = object.height()
-      local left = map.getTileIndices({x = rect.left + 1, y = rect.bottom})
-      local right = map.getTileIndices({x = rect.right - 1, y = rect.bottom})
-      for x = left.x,right.x do
-        event.notify("tileCollision", {x = x, y = left.y, entity = object})
-      end
       local verticalStuck = false
       local horizontalStuck = false
+      local left = map.getTileIndices({x = rect.left + 1, y = rect.bottom})
+      local right = map.getTileIndices({x = rect.right - 1, y = rect.bottom})
+      if self.velocity.y > 0 then
+	for x = left.x,right.x do
+	  event.notify("tileCollision", {x = x, y = left.y, entity = object})
+	end
+      end
       if map then
         -- Vertical collisions
         if self.velocity.y < 0 or object.transforming then
@@ -115,6 +117,9 @@ M.new = function (arg)
             --end
             self.velocity.y = 0
             object.falling = false
+	    for x = left.x,right.x do
+	       event.notify("tileCollision", {x = x, y = left.y-1, entity = object})
+	    end
             if collide(map, rect.left + 1, rect.top, rect.right - 1, rect.top) then
               verticalStuck = true
             end
@@ -126,7 +131,7 @@ M.new = function (arg)
         self.position.x = self.position.x + dt*(self.velocity.x + dt*self.acceleration.x/2)
         self.velocity.x = self.velocity.x + dt*self.acceleration.x
         rect = object.getCollisionRect()
-        -- Horizontal collisions
+	-- Horizontal collisions
         if self.velocity.x < 0 or object.transforming then
           if collide(map, rect.left, rect.top, rect.left, rect.bottom - 1) then
             self.position.x = (map.getTileBounds(map.getTileIndices({x = rect.left, y = rect.top})).right) - self.collisionRect.left
