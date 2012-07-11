@@ -307,7 +307,6 @@ M.new = function(arg)
     entity.clearAll()
     loadEntities(map, objectgroup)
     loadTiledata()
-    entity.scale = 1
   end
   
   object.tileCollision = function (arg)

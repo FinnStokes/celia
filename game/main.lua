@@ -274,6 +274,7 @@ local player = gauge.entity.new({
   type="player",
   position=spawn.getPosition(),
 })
+gauge.entity.scale = gauge.entity.scale * 128 / spawn.height()
 local camera = gauge.state.get().camera
 camera.position = player.getPosition()
 
@@ -396,11 +397,13 @@ gauge.event.subscribe("input", function (input)
     tween.stop(scaleTween)
     player.transforming = false
     gauge.state.get().map.reset()
+    gauge.entity.scale = 1
     spawn = gauge.entity.getList({type="player_spawn"})[1]
     player = gauge.entity.new({
       type="player",
       position=spawn.getPosition(),
     })
+    gauge.entity.scale = gauge.entity.scale * 128 / spawn.height()
     local camera = gauge.state.get().camera
     camera.position = player.getPosition()
     scale = gauge.entity.scale
