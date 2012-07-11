@@ -7,10 +7,8 @@ local list = {}
 
 M.update = function (dt)
   time = time + dt
-  print(time)
   local e = list[#list]
   while #list > 0 and e.time <= time do
-    print("trigger "..#list)
     list[#list] = nil
     event.notify(e.name, e.data)
     e = list[#list]
@@ -31,13 +29,11 @@ M.notify = function (name, data, time)
     do i = #list,1
       if e.time < list[i].time then
         table.insert(list,i+1,e)
-        print("store "..(i+1))
         return
       end
     end
   end
   table.insert(list,1,e)
-  print("store 1")
 end
 
 M.reset = function ()
