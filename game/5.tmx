@@ -499,13 +499,11 @@
   </data>
  </layer>
  <objectgroup name="Object Layer 1" width="64" height="24">
-  <object type="player_spawn" x="384" y="2304" width="128" height="128"/>
-  <object type="grower" x="1024" y="2048" width="128" height="128"/>
+  <object type="player_spawn" x="384" y="2176" width="256" height="256"/>
   <object x="2688" y="1664"/>
   <object x="3584" y="2048"/>
   <object type="door" x="7040" y="2176" width="256" height="256"/>
   <object type="shrinker" x="1920" y="1024" width="128" height="128"/>
   <object type="shrinker" x="5632" y="2304" width="128" height="128"/>
-  <object type="grower" x="6656" y="2304" width="128" height="128"/>
  </objectgroup>
 </map>
