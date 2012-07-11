@@ -11,6 +11,7 @@ gauge.input = require "input"
 gauge.state = require "state"
 gauge.map = require "map"
 gauge.music = require "music"
+gauge.time = require "time"
 
 local tween = require "tween"
 
@@ -97,7 +98,6 @@ love.load = function ()
 end
 
 frames = 0
-time = 0
 skipped = 0
 
 local lagging = false
@@ -108,8 +108,9 @@ love.update = function (dt)
       gauge.event.notify("input", input)
     end
     
+    gauge.time.update(dt)
+    
     frames = frames + 1
-    time = time + dt
     local updates = 1
     if dt > 1/30 then
       lagging = true
@@ -166,7 +167,7 @@ end
 
 love.quit = function ()
    profiler:stop()
-   print("Average fps",frames/time)
+   print("Average fps",frames/gauge.time.get())
    print("% frames skipped",(skipped/frames) * 100)
    local outfile = io.open( "profile.txt", "w+" )
    profiler:report( outfile )

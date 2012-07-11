@@ -2,6 +2,7 @@
 local entity = require "entity"
 local state = require "state"
 local event = require "event"
+local time = require "time"
 
 local M = {}
 
@@ -56,10 +57,10 @@ M.new = function(arg)
       tiledata[x] = {}
       for y=1,map.layers[tilelayer].height do
 	tiledata[x][y] = map.layers[tilelayer].data[x + ((y - 1) * map.layers[tilelayer].width)]
+        event.notify("tileCreation", {x=x, y=y})
       end
     end
   end
-  loadTiledata()
   
   loadEntities(map, objectgroup)
   
@@ -311,16 +312,32 @@ M.new = function(arg)
   object.tileCollision = function (arg)
     local tile = object.getTileProperties(arg)
     if tile.destructible then
-      print(tile.destroyWeight)
-      print(arg.entity.weight())
       if not tile.destroyWeight or arg.entity.weight() >= tile.destroyWeight then
         tiledata[arg.x][arg.y] = tile.destroyTo or 0
+        event.notify("tileCreation", arg)
       end
     end
   end
   
-  event.subscribe("tileCollision", object.tileCollision)
+  object.tileCreation = function (arg)
+    local tile = object.getTileProperties(arg)
+    if tile.decayTime then
+      time.delay("tileDecay",arg,tile.decayTime)
+    end
+  end
   
+  object.tileDecay = function (arg)
+    local tile = object.getTileProperties(arg)
+    tiledata[arg.x][arg.y] = tile.decayTo or 0
+    event.notify("tileCreation", arg)
+  end
+  
+  event.subscribe("tileCollision", object.tileCollision)
+  event.subscribe("tileCreation", object.tileCreation)
+  event.subscribe("tileDecay", object.tileDecay)
+
+  loadTiledata()
+
   object.prerender()
   
   return object

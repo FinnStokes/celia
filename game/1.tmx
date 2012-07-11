@@ -95,6 +95,24 @@
     <property name="solid" value="true"/>
    </properties>
   </tile>
+  <tile id="44">
+   <properties>
+    <property name="decayTime" value="1"/>
+    <property name="decayTo" value="21"/>
+   </properties>
+  </tile>
+  <tile id="45">
+   <properties>
+    <property name="decayTime" value="1"/>
+    <property name="decayTo" value="22"/>
+   </properties>
+  </tile>
+  <tile id="46">
+   <properties>
+    <property name="decayTime" value="1"/>
+    <property name="decayTo" value="23"/>
+   </properties>
+  </tile>
   <tile id="48">
    <properties>
     <property name="solid" value="true"/>
@@ -323,6 +341,12 @@
   <tile id="43">
    <properties>
     <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="44">
+   <properties>
+    <property name="decayTime" value="1"/>
+    <property name="decayTo" value="1"/>
    </properties>
   </tile>
   <tile id="48">
