@@ -40,4 +40,9 @@ M.notify = function (name, data, time)
   print("store 1")
 end
 
+M.reset = function ()
+  list = {}
+  time = 0
+end
+
 return M

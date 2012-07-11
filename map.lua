@@ -303,6 +303,7 @@ M.new = function(arg)
   end
   
   object.reset = function ()
+    time.reset()
     entity.clearAll()
     loadEntities(map, objectgroup)
     loadTiledata()
@@ -336,6 +337,7 @@ M.new = function(arg)
   event.subscribe("tileCreation", object.tileCreation)
   event.subscribe("tileDecay", object.tileDecay)
 
+  time.reset()
   loadTiledata()
 
   object.prerender()
