@@ -172,4 +172,8 @@ love.quit = function ()
    local outfile = io.open( "profile.txt", "w+" )
    profiler:report( outfile )
    outfile:close()
+   outfile = io.open("report.txt", "w+")
+   outfile:write("Average fps: ",frames/gauge.time.get())
+   outfile:write("\n% frames skipped: ",(skipped/frames) * 100)
+   outfile:close()
 end
