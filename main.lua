@@ -37,12 +37,25 @@ love.load = function ()
     end
   )
 
-  local modes = love.graphics.getModes()
-  table.sort(modes, function(a, b)
-    return a.width*a.height > b.width*b.height
-  end)
-  native_mode = modes[1]
-  love.graphics.setMode(native_mode.width, native_mode.height, true)
+  -- Set video mode (use settings.lua if present)
+  local mode = { width = nil, height = nil }
+  local fullscreen = true
+  if love.filesystem.exists("settings.lua") then
+    local settings = assert(love.filesystem.load("settings.lua"))()
+    mode = {
+      width = settings.screen_width or nil,
+      height = settings.screen_height or nil
+    }
+    fullscreen = settings.fullscreen or true
+  end
+  if not mode.width or not mode.height then
+    local modes = love.graphics.getModes()
+    table.sort(modes, function(a, b)
+      return a.width*a.height > b.width*b.height
+    end)
+    mode = modes[1]
+  end
+  love.graphics.setMode(mode.width, mode.height, fullscreen)
 
   local game_state = gauge.state.new()
   gauge.event.subscribe("loadMap", function (arg)

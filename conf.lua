@@ -1,4 +1,5 @@
--- CONFIGURATION
+-- GAME CONFIGURATION
+-- WARNING: USER SETTINGS GO IN settings.lua
 love.conf = function (t)
   t.title = "Celia"
   t.author = "GnomeLogic"
@@ -9,6 +10,4 @@ love.conf = function (t)
   t.screen.width = 800
   t.screen.height = 600
   t.screen.fullscreen = false
-  t.screen.vsync = true
-  t.modules.physics = false
 end
