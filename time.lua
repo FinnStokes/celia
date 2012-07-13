@@ -36,9 +36,8 @@ M.notify = function (name, data, time)
   table.insert(list,1,e)
 end
 
-M.reset = function ()
+M.clear = function ()
   list = {}
-  time = 0
 end
 
 return M
