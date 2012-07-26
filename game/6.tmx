@@ -176,7 +176,7 @@
  </tileset>
  <layer name="Tile Layer 1" width="44" height="42">
   <data encoding="base64" compression="zlib">
-   eJztl9lKxTAQhmN70aIi6hsouIDLjYIbHhW3938jf8HBMk7byZxMYiEDH5SQnvmak2SSEJYX3QJydSPP3lF9faP6+kb19Y3q6xvV1zeW6LsJtsA2aJVYfOndxui68cMu2AP7mXx7o28nkMN3J/yO1RzcV+uX0jemf4wv/9Z1fQ/AoaNv6vE9AacL8r0Al5G+7eA5t+8VuI7oL62/qTlber1pxlPa28JIv9y+koe2rZRvo3CT5kZqXym/5NsLLpKbt6+23lFtbGfe43lT+2rWVhDaNLmr719fqt0xdaCkL9XuFL6Ngy/3oNqdYj70Rt+p/tyDavfcfjGXm/YUi+8ROA7y2rKG5/w9A+dBvjNaw9N3+D/yO6M1PH2l++I32vtbbt+x31pnr/pvvryNn89K+N6AW3AH7sHDhC8/n5XwfQQr8ASewcsgx9j5zAKF9X3iFbyBd/ABPoUcqeILNOkQUA==
+   eJztmG9LwzAQh7P2RYuKzH0Dhamg7o2CU3FT/Pf9v5E/wWC5XdvLLZdYyMEDpaS7p1mSS+rc9KKZQK6m59o6iq9tFF/bKL62UXxto/jaxhR9D8AhOAK1EI2vf7ZSus5+mYMTsEjk2yp9G4YUvsfur6/GoL5Sv5i+Ie1DfOm77ut7Cs4MfWP37wW4nJDvDVgF+tad69S+t+AuoD03/4bGbO75JulPbm1zPe1S+3Ie0nu5fCuBGzc2Yvty+TnflnHh3Kx9pfXO18Z65DmaN7avZG455p4kd/Hd9fW1O6QO5PT1tTuGb2XgSz187Y4xHlql71B76uFr99h6MZbbryka3yU4d/zc0obl+L0C144/M2rD0rf7P9IzozYsfbnz4g/S81tq377f2metyuF7D9bgATyCp04O+g50f5bD9xlswBa8gNcBX7o/0/hK91Z9vIF38AE+wddA25BvF6Fz4T/GN48zEC0=
   </data>
  </layer>
  <objectgroup name="Object Layer 1" width="44" height="42">
@@ -191,7 +191,7 @@
   <object type="shrinker" x="3840" y="2304" width="128" height="128"/>
   <object type="grower" x="1024" y="2688" width="128" height="128"/>
   <object type="shrinker" x="1408" y="3328" width="128" height="128"/>
-  <object type="door" x="1664" y="4736" width="512" height="512"/>
+  <object type="door" x="1664" y="4864" width="256" height="256"/>
   <object type="grower" x="4352" y="3072" width="128" height="128"/>
  </objectgroup>
 </map>
