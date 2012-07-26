@@ -219,18 +219,6 @@ gauge.entity.registerType("player", {
       player_x = player_x / 4
       player_y = player_y / 4
     end
-    local dx = camera.position.x - player_x
-    local dy = camera.position.y - player_y
-    if math.abs(dx) > dx * camera.speed then
-      camera.position.x = camera.position.x - (dx * camera.speed)
-    else
-      camera.position.x = player_x
-    end
-    if math.abs(dy) > dx * camera.speed then
-      camera.position.y = camera.position.y - (dy * camera.speed)
-    else
-      camera.position.y = player_y
-    end
     camera.position.x = player_x
     camera.position.y = player_y
     
