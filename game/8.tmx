@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="50" height="50" tilewidth="128" tileheight="128">
  <properties>
+  <property name="bgm" value="ost/hedgemaze.ogg"/>
   <property name="parallax1" value="Background_Maze_Layer1.png"/>
   <property name="parallax2" value="Background_Maze_Layer2.png"/>
   <property name="parallax3" value="Background_Maze_Layer3.png"/>

@@ -46,7 +46,9 @@ love.load = function ()
       width = settings.screen_width or nil,
       height = settings.screen_height or nil
     }
-    fullscreen = settings.fullscreen or true
+    if settings.fullscreen ~= nil then
+      fullscreen = settings.fullscreen
+    end
   end
   if not mode.width or not mode.height then
     local modes = love.graphics.getModes()
@@ -57,6 +59,8 @@ love.load = function ()
   end
   love.graphics.setMode(mode.width, mode.height, fullscreen)
 
+  local bgm = nil
+  local old_bgm_file = nil
   local game_state = gauge.state.new()
   gauge.event.subscribe("loadMap", function (arg)
     loading = true
@@ -64,6 +68,16 @@ love.load = function ()
       game_state.map = gauge.map.new({
         data = love.filesystem.load(arg.file)
       })
+      local bgm_file = game_state.map.properties().bgm
+      if bgm_file and bgm_file ~= old_bgm_file then
+        if bgm then bgm.stop() end
+        bgm = gauge.music.new({file="game/"..bgm_file, volume=1, loop=true})
+        bgm.play()
+        old_bgm_file = bgm_file
+      elseif not bgm_file then
+        bgm.stop()
+        old_bgm_file = nil
+      end
       gauge.event.notify("input", {
         actions = {reset = true},
         states = {},

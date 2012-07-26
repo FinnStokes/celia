@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="27" height="25" tilewidth="128" tileheight="128">
+<map version="1.0" orientation="orthogonal" width="27" height="29" tilewidth="128" tileheight="128">
  <properties>
+  <property name="bgm" value="ost/forest.ogg"/>
   <property name="parallax1" value="Background_MagicForest_Layer1.png"/>
   <property name="parallax2" value="Background_MagicForest_Layer2.png"/>
   <property name="parallax3" value="Background_MagicForest_Layer3.png"/>
@@ -447,15 +448,15 @@
    </properties>
   </tile>
  </tileset>
- <layer name="Tile Layer 1" width="27" height="25">
+ <layer name="Tile Layer 1" width="27" height="29">
   <data encoding="base64" compression="zlib">
-   eJztlsEKgkAQhude15IM9AHqFHQNLCzqZpE3jXr/h2iGZnDa1tWV9BANfCjOuj/z+ysCAKTIrEcOUFUK/dZlQK3bX+urWtmAWsWAWr/0vMx3OUFiZIJMkZ3qb5GIewH3I16v1+n1CUP3mO+y+V05qf7R0hdWFi1zvY+H14a+WbTfXqE9rMv8All20KL9zgrtoS3z5PkIGXfQov1KeM1ExyYPxfMNcvfUEg9tc/lmXueSska5jPmccioelvA5V8b3mlmvK1cuCfFQfNTZKMCe9a6lc2jLRsjkUHlDyLzkTayuu+bXOTQ91FoPaPcP4Zpf5qrzMPQkbzmXy0MfLfF2DdW3NID3bLg8bIvvf5vWmvcM1RNa8zeP
+   eJztlEEPwUAQhefOlQZJ+wM4SVwlCMIN0RvCH+Onmomd9Fnb1S3tQUzypZvOdl/m9bVERFeqtm6w/mt9rjWvWGtZo9auRq3TX+urWpsatQ41av3S+7K/5QmTMC2mzcygP2Vi04tMPzb7cR/unxjkGftb7lisob9y9JWhQ8veH+Lh/k3fLjlvAaCHeZnvM4MSWnLeFkAPXZkXzxtMs4SWnHekx0xyfeehej5mzoFa6qFrrtDMYy4la5LLxKwlp+rhkV7n2phn7aznlS+XgnqoPmI2DuTOetnCHLqy0TWklHkj6LziTQL3ffNjDm0PUetCfn+KzK9z5XnYDSQtOJfPwxAt9XZE2b80ouds+DwsShGfEdTqVYzUHfKSOkw=
   </data>
  </layer>
- <objectgroup name="Object Layer 1" width="27" height="25">
-  <object type="door" x="2688" y="896" width="512" height="512"/>
-  <object type="player_spawn" x="384" y="1280" width="128" height="128"/>
-  <object type="grower" x="640" y="1280" width="128" height="128"/>
-  <object type="grower" x="2176" y="2560" width="128" height="128"/>
+ <objectgroup name="Object Layer 1" width="27" height="29">
+  <object type="door" x="2688" y="1408" width="512" height="512"/>
+  <object type="player_spawn" x="384" y="1792" width="128" height="128"/>
+  <object type="grower" x="640" y="1792" width="128" height="128"/>
+  <object type="grower" x="2176" y="3072" width="128" height="128"/>
  </objectgroup>
 </map>

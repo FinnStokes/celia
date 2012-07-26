@@ -7,10 +7,10 @@ return {
 -- SCREEN SIZE
 -- If enabled, sets the screen size to the specified dimensions.
 -- If disabled, the screen size will be automatically detected.
-  screen_width = 1920, screen_height = 1080,
+  --screen_width = 1024, screen_height = 768,
 
 -- FULLSCREEN
 -- If disabled, defaults to true.
-  fullscreen = true,
+  --fullscreen = false,
 
 }
