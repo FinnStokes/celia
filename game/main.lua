@@ -10,18 +10,17 @@ local context = gauge.input.context.new({active = true})
 context.map = function (raw_in, map_in)
   if raw_in.key.pressed["up"] or
       raw_in.key.pressed[" "] or
-      raw_in.joystick.pressed[1] then
+      raw_in.key.pressed["w"] then
     map_in.actions["jump"] = true
   end
   if raw_in.key.released["up"] or
       raw_in.key.released[" "] or
-      raw_in.joystick.released[1] then
+      raw_in.key.released["w"] then
     map_in.actions["fall"] = true
   end
   
   if raw_in.key.pressed["return"] or
-    raw_in.key.pressed["r"] or
-    raw_in.joystick.pressed[2] then
+    raw_in.key.pressed["r"] then
     map_in.actions["reset"] = true
   end
 
@@ -37,15 +36,19 @@ context.map = function (raw_in, map_in)
   end]]--
 
   -- Left Key
-  if raw_in.key.pressed["left"] then
-    if raw_in.key.down["right"] then
+  if raw_in.key.pressed["left"] or
+      raw_in.key.pressed["a"] then
+    if raw_in.key.down["right"] or
+      raw_in.key.down["d"] then
       map_in.actions["stop"] = true
     else
       map_in.actions["left"] = true
     end
   end
-  if raw_in.key.released["left"] then
-    if raw_in.key.down["right"] then
+  if raw_in.key.released["left"] or
+      raw_in.key.released["a"] then
+    if raw_in.key.down["right"] or
+        raw_in.key.down["d"] then
       map_in.actions["right"] = true
     else
       map_in.actions["stop"] = true
@@ -53,15 +56,19 @@ context.map = function (raw_in, map_in)
   end
 
   -- Right Key
-  if raw_in.key.pressed["right"] then
-    if raw_in.key.down["left"] then
+  if raw_in.key.pressed["right"] or
+      raw_in.key.pressed["d"] then
+    if raw_in.key.down["left"] or
+        raw_in.key.down["a"] then
       map_in.actions["stop"] = true
     else
       map_in.actions["right"] = true
     end
   end
-  if raw_in.key.released["right"] then
-    if raw_in.key.down["left"] then
+  if raw_in.key.released["right"] or
+      raw_in.key.released["d"] then
+    if raw_in.key.down["left"] or
+        raw_in.key.down["a"] then
       map_in.actions["left"] = true
     else
       map_in.actions["stop"] = true
@@ -78,13 +85,6 @@ context.map = function (raw_in, map_in)
   
   return map_in
 end
-
---local littleTheme = gauge.music.new({file="game/little.ogg", volume=0, loop=true})
---local bigTheme = gauge.music.new({file="game/big.ogg", volume=0, loop=true})
-local celiaTheme = gauge.music.new({file="game/carefulwiththatcakecelia.ogg", volume=1, loop=true})
---littleTheme.play()
---bigTheme.play()
-celiaTheme.play()
 
 gauge.entity.registerType("player", {
   acceleration = { x = 0, y = g },
@@ -138,9 +138,6 @@ gauge.entity.registerType("player", {
   end,
   chestHeaving = 1,
   render=function(object, self)
-    --if self.frame >self.animations[self.animation].frames then
-    --  self.frame = self.frame - self.animations[self.animation].frames
-    --end
     self.frame = self.frame % self.animations[self.animation].frames
     local sprite = love.graphics.newQuad(64*math.floor(self.frame),
       128*self.animations[self.animation].line,64,128,
@@ -234,21 +231,8 @@ gauge.entity.registerType("player", {
     else
       camera.position.y = player_y
     end
-    camera.position.x = player_x --math.floor(camera.position.x)
-    camera.position.y = player_y --math.floor(camera.position.y)
-    
-    -- music
-    --[[if gauge.entity.scale > 1/2 then
-      littleTheme.volume(1)
-      bigTheme.volume(0)
-    elseif gauge.entity.scale < 1/4 then
-      littleTheme.volume(0)
-      bigTheme.volume(1)
-    else
-      local s = ((1 / gauge.entity.scale) - 2) / 2
-      littleTheme.volume(1 - s)
-      bigTheme.volume(s)
-    end]]--
+    camera.position.x = player_x
+    camera.position.y = player_y
   end
 })
 

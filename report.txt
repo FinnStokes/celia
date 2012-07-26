@@ -1,2 +1,0 @@
-Average fps: 59.895699752074
-% frames skipped: 0.014273479874393
