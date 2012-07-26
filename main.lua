@@ -58,6 +58,7 @@ love.load = function ()
     mode = modes[1]
   end
   love.graphics.setMode(mode.width, mode.height, fullscreen)
+  gauge.video_mode = mode -- XXX: ugly hack
 
   local bgm = nil
   local old_bgm_file = nil
