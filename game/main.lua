@@ -233,6 +233,26 @@ gauge.entity.registerType("player", {
     end
     camera.position.x = player_x
     camera.position.y = player_y
+    
+    -- lock to edges
+    if not map.properties()['wrap'] then
+      if map.width()*gauge.entity.scale < gauge.video_mode.width then
+        camera.position.x = (map.width()*gauge.entity.scale/2)
+      elseif camera.position.x > (map.width()*gauge.entity.scale) - (gauge.video_mode.width/2) then
+        camera.position.x = (map.width()*gauge.entity.scale) - (gauge.video_mode.width/2)
+      elseif camera.position.x < gauge.video_mode.width/2 then
+        camera.position.x = gauge.video_mode.width/2
+      end
+      
+      if map.height()*gauge.entity.scale < gauge.video_mode.height then
+        camera.position.y = (map.height()*gauge.entity.scale/2)
+      elseif camera.position.y > (map.height()*gauge.entity.scale) - (gauge.video_mode.height/2) then
+        camera.position.y = (map.height()*gauge.entity.scale) - (gauge.video_mode.height/2)
+      elseif camera.position.y < gauge.video_mode.height/2 then
+        camera.position.y = gauge.video_mode.height/2
+      end
+    end
+
   end
 })
 
