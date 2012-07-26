@@ -44,8 +44,12 @@ M.new = function (arg)
   local collide = function (map, x1, y1, x2, y2)
     local i1 = map.getTileIndices({x = x1, y = y1})
     local i2 = map.getTileIndices({x = x2, y = y2})
-    for x=i1.x,i2.x do
-      for y=i1.y,i2.y do
+    local w = map.ntilesx()
+    local h = map.ntilesy()
+    for ix=i1.x,i2.x do
+      for iy=i1.y,i2.y do
+        local x = math.mod(ix-1, w)+1
+        local y = math.mod(iy-1, h)+1
         if map.getTileProperties({x = x, y = y}).solid == true then
           return true
         end

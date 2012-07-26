@@ -113,6 +113,14 @@ M.new = function(arg)
     return map.height * map.tileheight
   end
 
+  object.ntilesx = function()
+    return map.width
+  end
+
+  object.ntilesy = function()
+    return map.height
+  end
+
   -- getTileIndices(arg)
   object.getTileIndices = function (arg)
     return {x = math.ceil(arg.x / (map.tilesets[tilelayer].tilewidth * entity.scale)),
