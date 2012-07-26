@@ -449,7 +449,7 @@
  </tileset>
  <layer name="Tile Layer 1" width="27" height="25">
   <data encoding="base64" compression="zlib">
-   eJztlEELgkAQhede15IM9AfUKegaWFTUzSJvFvX/f0Q7tIOvbV13JT1EAx8uzrqPeT4lItpSt7WHddda5x61bn+tr2rlPWqVPWr90vsyv+VMkSpGirFiA/21ItG9SPcTvR/34f5Mw8+Y3/LE4Aj9g6UvLCxa5v4QDy8NfbP4vB2AHtZlfqaYt9Di804AemjLPHs+UAxbaPF5V3rNxNcmD8XzleIeqCUe2uYKzTzmkrPGuUz1mnMqHl7pc65cP2tmva5cuWTEQ/ERs1GSPettC3Noy0asKajyhpF52ZsU7rvmxxyaHqLWg9z++Mwvc9V5GAdSeM7l8jBES7xdUvUvjeg9Gy4PffHxGUGtacdwPQEd8jVQ
+   eJztlsEKgkAQhude15IM9AHqFHQNLCzqZpE3jXr/h2iGZnDa1tWV9BANfCjOuj/z+ysCAKTIrEcOUFUK/dZlQK3bX+urWtmAWsWAWr/0vMx3OUFiZIJMkZ3qb5GIewH3I16v1+n1CUP3mO+y+V05qf7R0hdWFi1zvY+H14a+WbTfXqE9rMv8All20KL9zgrtoS3z5PkIGXfQov1KeM1ExyYPxfMNcvfUEg9tc/lmXueSska5jPmccioelvA5V8b3mlmvK1cuCfFQfNTZKMCe9a6lc2jLRsjkUHlDyLzkTayuu+bXOTQ91FoPaPcP4Zpf5qrzMPQkbzmXy0MfLfF2DdW3NID3bLg8bIvvf5vWmvcM1RNa8zeP
   </data>
  </layer>
  <objectgroup name="Object Layer 1" width="27" height="25">
