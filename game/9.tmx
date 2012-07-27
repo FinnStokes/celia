@@ -5,7 +5,6 @@
   <property name="parallax1" value="Background_Maze_Layer1.png"/>
   <property name="parallax2" value="Background_Maze_Layer2.png"/>
   <property name="parallax3" value="Background_Maze_Layer3.png"/>
-  <property name="wrap" value="true"/>
  </properties>
  <tileset firstgid="1" name="default" tilewidth="128" tileheight="128">
   <image source="HedgeMaze.png" width="1152" height="640"/>
@@ -57,7 +56,7 @@
  </tileset>
  <layer name="Tile Layer 2" width="50" height="50">
   <data encoding="base64" compression="zlib">
-   eJztWYlqwzAMze5kZ9ud0B0dhEH+/wenQAWasC4fXQt9IFrH9pNfGkevSdfVwWS0W82tjaOOo44WOOqoo2OqGBZvREdJ7paI6MhFX4lHg1fHlZOPr/kHYrn9pMEh8feOMTMsHcP2+yKxFrom/M7XbPHiXImf8vExlMPSsTLGTkpfCW9NjrlvzdrSXo7q4LxReDlwjaPCRa/XqI6RtaNIcXjvl/zapderdT6sWhBFyb20Vf3IrVOtMdhD/iD6+6AO7T6cW7MoJ91/0j2YHs/VsVA46f2aQ6offK+MCY45b8/a2jpnnECcQpxBnCd0UA5pj/Jj2l72YJ67VPhTua8hbiBuIe4c/LxNtV5AXBp5PaDzB4MP+x4hniCeIV5If+p6sK7Ne4gHI68HdP7K4MO+d4gPiE+IL2WNVr4ZrxBvzrle3rXBN/dpe9Grg943NxDfzrkWL2KswOfJV+rhJF6vP62Vr9TDSby55yfHR3j9V4738Hrn1NzWiOjQvLPGtU86PGMPUUfK45Xo4HyaT4zkToHWBfRjHi4th/TfPfVsIyd3ai3Svra8j6f2RxH12J5xlvfR6vs+6ajlfSKoqQPP6aar430ikHx+dJ50bFfgPgmPRWtD75jTEtwn0ePSOU/1LYXxuwL3Sbwv4r1y/V+tsHzSvmNinwisY4cCqoPWdaxjEqx3J9YzM++7F+/cSfiOdSwF7d2G5oUi8z3P1TQdvI5J73iiwDzouUr+v/F1p9qtkFtXPWNLnydGgHm0fXMov4f1rjGqY2Dt/wL/LxnV0eJZVg5o7kUX19HiWVYOSq5x7kFydPwCIFJUtQ==
+   eJztWWlrwzAMzc42O9vuhO6EMOj//4NToQYhrMOy4rSQB4/tg/ysp9ix6uy6rtsFEaPl2GjOPmYfs4/Zx5g+WqFFHssgHQlWHwujHs35D7g+/MWk4PSXhpg9NB/9IW6VyQXnlP6nOWu6aSynj/VoDNbQfGwMsRYdj26kxnYkHxbdSI2h44HXa2kOQ8XYEo0c6NrF67U0BwyvDy/Gmqu1Dyv6wvjSHFOM9B72nllYE+8/7szQ3s0SUsxK0MTvawru/KB7ZWByxDWyrJkz4DnwAnjJjMW5WdafZy9Trgt93ABvgXfA+06GpnUFvA7wgOvSG2OfgM/AF+ArGp9bD9pzeAA+BvvYGGM/gJ/AL+A3Gl863x5vwPdgH1tDrLQXrfP1aM4f4G+wjyFIT2NED6fVp4WPiB6uZX04RvRw0fUZG976lGqNjci6nqKPXI9X44PqSX1i6dw50n6s1gf32z13t+Gd2/p8LL0Ph9q5PTocLL1P7dnewkdk7zOFj1TTny6u95nCR+u8KXtnPhjLI/CB+6QSLxjrI/CB+yTNi4SpfWh90rGDq3M6x04F2Ac+19M5xkH7dqLdmVm/vVjHcms/nWM5SN82pF6oZLzlXk3yQc+xyL5hj6j7JroPWr5LNHj1Iu4TS+eV9s2pPI/cvqnJpZ/Ih1TThWNs67sai4+VY+xYd1k1Pjy51N5l/QONQREc
   </data>
  </layer>
  <objectgroup name="Object Layer 1" width="50" height="50">

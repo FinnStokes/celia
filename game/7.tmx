@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="44" height="42" tilewidth="128" tileheight="128">
+<map version="1.0" orientation="orthogonal" width="48" height="32" tilewidth="128" tileheight="128">
  <properties>
   <property name="bgm" value="ost/playroom.ogg"/>
   <property name="parallax1" value="Background_PlayRoom_Layer1.png"/>
@@ -64,6 +64,11 @@
    </properties>
   </tile>
   <tile id="29">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="33">
    <properties>
     <property name="solid" value="true"/>
    </properties>
@@ -174,24 +179,20 @@
    </properties>
   </tile>
  </tileset>
- <layer name="Tile Layer 1" width="44" height="42">
+ <layer name="Tile Layer 1" width="48" height="32">
   <data encoding="base64" compression="zlib">
-   eJztmG9LwzAQh7P2RYuKzH0Dhamg7o2CU3FT/Pf9v5E/wWC5XdvLLZdYyMEDpaS7p1mSS+rc9KKZQK6m59o6iq9tFF/bKL62UXxto/jaxhR9D8AhOAK1EI2vf7ZSus5+mYMTsEjk2yp9G4YUvsfur6/GoL5Sv5i+Ie1DfOm77ut7Cs4MfWP37wW4nJDvDVgF+tad69S+t+AuoD03/4bGbO75JulPbm1zPe1S+3Ie0nu5fCuBGzc2Yvty+TnflnHh3Kx9pfXO18Z65DmaN7avZG455p4kd/Hd9fW1O6QO5PT1tTuGb2XgSz187Y4xHlql71B76uFr99h6MZbbryka3yU4d/zc0obl+L0C144/M2rD0rf7P9IzozYsfbnz4g/S81tq377f2metyuF7D9bgATyCp04O+g50f5bD9xlswBa8gNcBX7o/0/hK91Z9vIF38AE+wddA25BvF6Fz4T/GN48zEC0=
+   eJztl1tLAzEQhdOitqgs1hf3xQUF20JtXyqoLfWCt///j3oWNjDEmSS7bZYEcuCDhEwzh+w0F6WysrKyslLXqAMxqa2fVPzfWOIP4dgy5xw03JI25RAfffj3iY/Z/9AjPmb/Y4/4Gq62JKRcx5DppWDyKpXrv0uutnOegwtwycSVJF5/My3fOgrt/wpMwDWTu1Jy/fj6irV+UvD/AKbqv/82ddGHf+nesACPKs7/L61z896gldL+eQfuLfExnV+cZmAujHVZf70efflfgpUw5uP/BJyCs6av1yNk/WvV7TV4UnINuHyY56Bejxj3f67ezXNQr0eM/kPmCjEnd/+hsr0fbLmewQt4BRuwdfig5yntu+Raf9f7gaok7R14A+/gA3ySMe5Mpecp7bvyuPb/wjJm/q4i7S/wDX7AL/gjY9JbnJuTozLi9xVgDgs=
   </data>
  </layer>
- <objectgroup name="Object Layer 1" width="44" height="42">
-  <object type="grower" x="1920" y="4224" width="128" height="128"/>
-  <object type="grower" x="3456" y="3968" width="128" height="128"/>
-  <object type="grower" x="4480" y="4352" width="128" height="128"/>
-  <object type="grower" x="5120" y="3840" width="128" height="128"/>
-  <object type="grower" x="3968" y="1664" width="128" height="128"/>
-  <object type="grower" x="3584" y="4864" width="128" height="128"/>
-  <object type="door" x="3072" y="2816" width="512" height="512"/>
-  <object type="player_spawn" x="3712" y="3072" width="128" height="128"/>
-  <object type="shrinker" x="3840" y="2304" width="128" height="128"/>
-  <object type="grower" x="1024" y="2688" width="128" height="128"/>
-  <object type="shrinker" x="1408" y="3328" width="128" height="128"/>
-  <object type="door" x="1664" y="4864" width="256" height="256"/>
-  <object type="grower" x="4352" y="3072" width="128" height="128"/>
+ <objectgroup name="Object Layer 1" width="48" height="32">
+  <object type="player_spawn" x="5760" y="1024" width="256" height="256"/>
+  <object type="shrinker" x="5888" y="1664" width="128" height="128"/>
+  <object type="grower" x="4608" y="2560" width="128" height="128"/>
+  <object x="4608" y="2688"/>
+  <object type="grower" x="5376" y="3840" width="128" height="128"/>
+  <object type="shrinker" x="4096" y="3840" width="128" height="128"/>
+  <object type="grower" x="768" y="2816" width="128" height="128"/>
+  <object type="door" x="256" y="1536" width="256" height="256"/>
+  <object x="2176" y="4992"/>
  </objectgroup>
 </map>
