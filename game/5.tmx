@@ -81,7 +81,7 @@
   <tile id="768">
    <properties>
     <property name="destroyTo" value="771"/>
-    <property name="destroyWeight" value="1"/>
+    <property name="destroyWeight" value="2"/>
     <property name="destructible" value="true"/>
     <property name="solid" value="true"/>
    </properties>
@@ -89,7 +89,7 @@
   <tile id="769">
    <properties>
     <property name="destroyTo" value="772"/>
-    <property name="destroyWeight" value="1"/>
+    <property name="destroyWeight" value="2"/>
     <property name="destructible" value="true"/>
     <property name="solid" value="true"/>
    </properties>
