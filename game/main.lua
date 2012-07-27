@@ -316,6 +316,10 @@ gauge.event.subscribe("input",
   end
 )
 
+local growEffect = gauge.music.new({file="game/whistlegrow.ogg", volume=1})
+local shrinkEffect = gauge.music.new({file="game/whistleshrink.ogg", volume=1})
+local doorEffect = gauge.music.new({file="game/door.ogg", volume=1})
+
 local scale = gauge.entity.scale
 
 local scaleTween = nil
@@ -332,6 +336,9 @@ gauge.event.subscribe("entityCollision",
         shrinking = false
         player.transforming = true
         gauge.event.notify("input", {actions={stop=true}})
+        growEffect.play()
+        shrinkEffect.stop()
+        doorEffect.stop()
       end
       if entities[2].type == "shrinker" and scale < 1 then
         tween.stop(scaleTween)
@@ -342,6 +349,9 @@ gauge.event.subscribe("entityCollision",
         shrinking = true
         player.transforming = true
         gauge.event.notify("input", {actions={stop=true}})
+        growEffect.stop()
+        shrinkEffect.play()
+        doorEffect.stop()
       end
       if entities[2].type == "door" then
         local size = entities[2].height()
@@ -352,6 +362,9 @@ gauge.event.subscribe("entityCollision",
               player_rect.right <= door_rect.right and
               player_rect.top >= door_rect.top and
               player_rect.bottom <= door_rect.bottom then
+            growEffect.stop()
+            shrinkEffect.stop()
+            doorEffect.play()
             nextLevel()
           end
         elseif 128 < size then
