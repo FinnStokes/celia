@@ -88,10 +88,10 @@ end
 
 gauge.entity.registerType("player", {
   acceleration = { x = 0, y = g },
-  width=70,
+  width=64,
   height=128,
   weight=1,
-  collisionRect = { left = 16, top = 10, right = 54, bottom = 128 },
+  collisionRect = { left = -16, top = -118, right = 16, bottom = 0 },
   scaled=false,
   dynamic=true,
   friction = friction,
@@ -150,7 +150,7 @@ gauge.entity.registerType("player", {
       scaleFlip = -1
       originFlip = 64
     end
-    love.graphics.drawq(self.image,sprite,position.x,position.y,0,
+    love.graphics.drawq(self.image,sprite,position.x-self.width/2,position.y-self.height, 0,
     scaleFlip, 1, originFlip, 0)
   end,
   update=function(object, self, dt)
