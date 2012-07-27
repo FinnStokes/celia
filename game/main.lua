@@ -1,7 +1,7 @@
 local walk_v = 512
 local jump_height = 320 --272
 local jump_length = 384
-local friction = 2
+local friction = 1
 
 local jump_v = 4*walk_v*jump_height/jump_length
 local g = jump_v*jump_v/(2*jump_height)
@@ -157,13 +157,17 @@ gauge.entity.registerType("player", {
     local map = gauge.state.get().map
     local camera = gauge.state.get().camera
     if object.float then
-       if self.velocity.y < 0 then
-         self.friction = 0
-       else
-         self.friction = 4*friction
-       end
+      if self.velocity.y < 0 then
+        self.friction = 0
+      else
+        self.friction = friction
+      end
     else
-      self.friction = friction
+      if self.velocity.y < 0 then
+        self.friction = 8
+      else
+        self.friction = friction
+      end
     end
     if map and map.properties and map.properties().credits then
       self.position = { x = 0, y = 0 }
