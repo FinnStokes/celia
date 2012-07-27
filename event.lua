@@ -19,4 +19,18 @@ M.subscribe = function(event, callback)
   table.insert(manager.events[event], callback)
 end
 
+M.unsubscribe = function(event, callback)
+  if manager.events[event] then
+    local del = -1
+    for i,c in ipairs(manager.events[event]) do
+      if c == callback then
+        del = i
+      end
+    end
+    if del ~= -1 then
+      table.remove(manager.events[event],del)
+    end
+  end
+end
+
 return M

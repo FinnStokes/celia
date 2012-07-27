@@ -318,6 +318,12 @@ M.new = function(arg)
     loadEntities(map, objectgroup)
     loadTiledata()
   end
+
+  object.delete = function()
+    event.unsubscribe("tileCollision", object.tileCollision)
+    event.unsubscribe("tileCreation", object.tileCreation)
+    event.unsubscribe("tileDecay", object.tileDecay)
+  end
   
   object.tileCollision = function (arg)
     local tile = object.getTileProperties(arg)

@@ -66,6 +66,7 @@ love.load = function ()
   gauge.event.subscribe("loadMap", function (arg)
     loading = true
     if love.filesystem.exists(arg.file) then
+      if game_state.map then game_state.map.delete() end
       game_state.map = gauge.map.new({
         data = love.filesystem.load(arg.file)
       })
