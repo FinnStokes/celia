@@ -81,7 +81,7 @@
   <tile id="768">
    <properties>
     <property name="destroyTo" value="771"/>
-    <property name="destroyWeight" value="2"/>
+    <property name="destroyWeight" value="1"/>
     <property name="destructible" value="true"/>
     <property name="solid" value="true"/>
    </properties>
@@ -89,18 +89,36 @@
   <tile id="769">
    <properties>
     <property name="destroyTo" value="772"/>
-    <property name="destroyWeight" value="2"/>
+    <property name="destroyWeight" value="1"/>
     <property name="destructible" value="true"/>
     <property name="solid" value="true"/>
    </properties>
   </tile>
   <tile id="770">
    <properties>
-    <property name="solid" value="false"/>
+    <property name="decayTime" value="0.3"/>
+    <property name="decayTo" value="773"/>
+    <property name="solid" value="true"/>
    </properties>
   </tile>
   <tile id="771">
    <properties>
+    <property name="decayTime" value="0.3"/>
+    <property name="decayTo" value="773"/>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="772">
+   <properties>
+    <property name="decayTime" value="0.2"/>
+    <property name="decayTo" value="0"/>
+    <property name="solid" value="false"/>
+   </properties>
+  </tile>
+  <tile id="773">
+   <properties>
+    <property name="decayTime" value="0.2"/>
+    <property name="decayTo" value="0"/>
     <property name="solid" value="false"/>
    </properties>
   </tile>
