@@ -67,7 +67,7 @@
   <object type="grower" x="1920" y="1152" width="128" height="128"/>
   <object type="grower" x="512" y="5248" width="128" height="128"/>
   <object type="shrinker" x="2560" y="6144" width="128" height="128"/>
-  <object type="door" x="2304" y="3584" width="384" height="512"/>
+  <object type="door" x="2304" y="3584" width="512" height="512"/>
   <object type="shrinker" x="896" y="2048" width="128" height="128"/>
  </objectgroup>
 </map>
