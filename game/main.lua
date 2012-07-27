@@ -1,3 +1,5 @@
+gauge.num_levels = 11
+
 local walk_v = 512
 local jump_height = 320 --272
 local jump_length = 384
@@ -73,6 +75,17 @@ context.map = function (raw_in, map_in)
     else
       map_in.actions["stop"] = true
     end
+  end
+  
+  -- Map Switch
+  if raw_in.key.pressed["8"] then
+    map_in.actions["firstLevel"] = true
+  end
+  if raw_in.key.pressed["9"] then
+    map_in.actions["lastLevel"] = true
+  end
+  if raw_in.key.pressed["0"] then
+    map_in.actions["creditsLevel"] = true
   end
   
   return map_in
@@ -241,21 +254,13 @@ gauge.entity.registerType("player", {
 })
 
 local level = 0
-local nextLevel = function ()
-  level = level + 1
+local gotoLevel = function (x)
+  level = x
   gauge.event.notify("loadMap", {
     file = "game/" .. level .. ".lua"
   })
 end
-nextLevel()
-local previousLevel = function ()
-  if level > 1 then
-    level = level - 1
-  end
-  gauge.event.notify("loadMap", {
-    file = "game/" .. level .. ".lua"
-  })
-end
+gotoLevel(1)
 
 local spawn = gauge.entity.getList({type="player_spawn"})[1]
 local spawnPos = function()
@@ -309,11 +314,14 @@ gauge.event.subscribe("input",
     if input.actions.stop then
       player.velocity({x = 0})
     end
-    if input.actions.nextLevel then
-      nextLevel()
+    if input.actions.firstLevel then
+      gotoLevel(1)
     end
-    if input.actions.previousLevel then
-      previousLevel()
+    if input.actions.lastLevel then
+      gotoLevel(gauge.num_levels)
+    end
+    if input.actions.creditsLevel then
+      gotoLevel(gauge.num_levels - 1)
     end
   end
 )
