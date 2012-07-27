@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="44" height="42" tilewidth="128" tileheight="128">
+ <properties>
+  <property name="bgm" value="ost/playroom.ogg"/>
+  <property name="parallax1" value="Background_PlayRoom_Layer1.png"/>
+  <property name="parallax2" value="Background_PlayRoom_Layer2.png"/>
+  <property name="parallax3" value="Background_PlayRoom_Layer3.png"/>
+ </properties>
+ <tileset firstgid="1" name="PlayRoom" tilewidth="128" tileheight="128">
+  <image source="PlayRoom.png" width="768" height="1536"/>
+  <tile id="0">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="6">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="9">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="10">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="12">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="13">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="15">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="17">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="25">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="26">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="28">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="29">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="36">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="37">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="38">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="39">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="42">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="43">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="44">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="45">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="50">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="51">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="54">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="55">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="60">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="61">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="62">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="63">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="66">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="67">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="68">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="69">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="70">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="Tile Layer 1" width="44" height="42">
+  <data encoding="base64" compression="zlib">
+   eJztmG9LwzAQh7P2RYuKzH0Dhamg7o2CU3FT/Pf9v5E/wWC5XdvLLZdYyMEDpaS7p1mSS+rc9KKZQK6m59o6iq9tFF/bKL62UXxto/jaxhR9D8AhOAK1EI2vf7ZSus5+mYMTsEjk2yp9G4YUvsfur6/GoL5Sv5i+Ie1DfOm77ut7Cs4MfWP37wW4nJDvDVgF+tad69S+t+AuoD03/4bGbO75JulPbm1zPe1S+3Ie0nu5fCuBGzc2Yvty+TnflnHh3Kx9pfXO18Z65DmaN7avZG455p4kd/Hd9fW1O6QO5PT1tTuGb2XgSz187Y4xHlql71B76uFr99h6MZbbryka3yU4d/zc0obl+L0C144/M2rD0rf7P9IzozYsfbnz4g/S81tq377f2metyuF7D9bgATyCp04O+g50f5bD9xlswBa8gNcBX7o/0/hK91Z9vIF38AE+wddA25BvF6Fz4T/GN48zEC0=
+  </data>
+ </layer>
+ <objectgroup name="Object Layer 1" width="44" height="42">
+  <object type="grower" x="1920" y="4224" width="128" height="128"/>
+  <object type="grower" x="3456" y="3968" width="128" height="128"/>
+  <object type="grower" x="4480" y="4352" width="128" height="128"/>
+  <object type="grower" x="5120" y="3840" width="128" height="128"/>
+  <object type="grower" x="3968" y="1664" width="128" height="128"/>
+  <object type="grower" x="3584" y="4864" width="128" height="128"/>
+  <object type="door" x="3072" y="2816" width="512" height="512"/>
+  <object type="player_spawn" x="3712" y="3072" width="128" height="128"/>
+  <object type="shrinker" x="3840" y="2304" width="128" height="128"/>
+  <object type="grower" x="1024" y="2688" width="128" height="128"/>
+  <object type="shrinker" x="1408" y="3328" width="128" height="128"/>
+  <object type="door" x="1664" y="4864" width="256" height="256"/>
+  <object type="grower" x="4352" y="3072" width="128" height="128"/>
+ </objectgroup>
+</map>

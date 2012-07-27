@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="16" height="20" tilewidth="128" tileheight="128">
+ <properties>
+  <property name="bgm" value="ost/teaparty.ogg"/>
+  <property name="parallax1" value="Background_TeaParty_Layer1.png"/>
+  <property name="parallax2" value="Background_TeaParty_Layer2.png"/>
+  <property name="parallax3" value="Background_TeaParty_Layer3.png"/>
+ </properties>
+ <tileset firstgid="1" name="TeaParty2" tilewidth="128" tileheight="128">
+  <image source="TeaParty2.png" width="2048" height="6272"/>
+  <tile id="16">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="17">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="18">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="243">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="273">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="275">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="657">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="658">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="659">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="660">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="689">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="690">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="691">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="692">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="768">
+   <properties>
+    <property name="destroyTo" value="771"/>
+    <property name="destroyWeight" value="2"/>
+    <property name="destructible" value="true"/>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="769">
+   <properties>
+    <property name="destroyTo" value="772"/>
+    <property name="destroyWeight" value="2"/>
+    <property name="destructible" value="true"/>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="770">
+   <properties>
+    <property name="decayTime" value="0.3"/>
+    <property name="decayTo" value="773"/>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="771">
+   <properties>
+    <property name="decayTime" value="0.3"/>
+    <property name="decayTo" value="773"/>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="772">
+   <properties>
+    <property name="decayTime" value="0.2"/>
+    <property name="decayTo" value="0"/>
+    <property name="solid" value="false"/>
+   </properties>
+  </tile>
+  <tile id="773">
+   <properties>
+    <property name="decayTime" value="0.2"/>
+    <property name="decayTo" value="0"/>
+    <property name="solid" value="false"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="Tile Layer 1" width="16" height="20">
+  <data encoding="base64" compression="zlib">
+   eJzNkNkNAjEMRBMvDRBoAOiUo4EFGuBogKMzCuChlSXLykeS3Q9GehpNTtu9hHCEE5yhr8z/oi217GAPBynPsQtBuvq+NU+hC+9c4QZ38+YsDohxcWsfzj2484QXvE1PyziQjCe3NlZah69Ps+0lt691+Po0215y+2Pl51viVn6+JT6lcjOu8dyMa/z3vTTCl2EOqZEFrGDdyAa+tyYnZw==
+  </data>
+ </layer>
+ <objectgroup name="Object Layer 1" width="16" height="20">
+  <object type="player_spawn" x="1408" y="128" width="256" height="256"/>
+  <object type="shrinker" x="512" y="768" width="128" height="128"/>
+  <object type="shrinker" x="896" y="1152" width="128" height="128"/>
+  <object type="shrinker" x="1920" y="1664" width="128" height="128"/>
+  <object type="door" x="1280" y="2176" width="128" height="128"/>
+ </objectgroup>
+</map>
