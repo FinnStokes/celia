@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="30" height="30" tilewidth="128" tileheight="128">
+ <properties>
+  <property name="bgm" value="ost/playroom.ogg"/>
+  <property name="parallax1" value="Background_PlayRoom_Layer1.png"/>
+  <property name="parallax2" value="Background_PlayRoom_Layer2.png"/>
+  <property name="parallax3" value="Background_PlayRoom_Layer3.png"/>
+  <property name="wrap" value="true"/>
+ </properties>
+ <tileset firstgid="1" name="PlayRoom" tilewidth="128" tileheight="128">
+  <image source="PlayRoom.png" width="768" height="1536"/>
+  <tile id="0">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="6">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="22">
+   <properties>
+    <property name="destroyTo" value="3"/>
+    <property name="destroyWeight" value="2"/>
+    <property name="destructible" value="true"/>
+   </properties>
+  </tile>
+  <tile id="28">
+   <properties>
+    <property name="destroyTo" value="3"/>
+    <property name="destroyWeight" value="2"/>
+    <property name="destructible" value="true"/>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="Tile Layer 1" width="30" height="30">
+  <data encoding="base64" compression="zlib">
+   eJxjZGBgYCQCIwN0PjmAnU56Ru2FAHE62wtLN7IMxKUvbOmMkNnk6icXUCNcRu2lzF5S0hKp6QLdXkrTFbHhR+1wHsr20rKcxJc+Bqp8pmV6HgUjF1ArXZGqn1r5iBRz2EegveQASu0lF4zaS7q95ORXbHaQmn8BJucB3g==
+  </data>
+ </layer>
+ <objectgroup name="Object Layer 1" width="30" height="30">
+  <object type="door" x="896" y="1920" width="128" height="128"/>
+  <object type="shrinker" x="2304" y="1024" width="128" height="128"/>
+  <object type="grower" x="2944" y="3328" width="128" height="128"/>
+  <object type="player_spawn" x="768" y="3584" width="128" height="128"/>
+  <object type="grower" x="3456" y="256" width="128" height="128"/>
+  <object type="shrinker" x="2816" y="2176" width="128" height="128"/>
+ </objectgroup>
+</map>

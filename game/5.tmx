@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="64" height="24" tilewidth="128" tileheight="128">
+<map version="1.0" orientation="orthogonal" width="48" height="16" tilewidth="128" tileheight="128">
  <properties>
   <property name="bgm" value="ost/teaparty.ogg"/>
   <property name="parallax1" value="Background_TeaParty_Layer1.png"/>
@@ -63,6 +63,16 @@
     <property name="solid" value="true"/>
    </properties>
   </tile>
+  <tile id="68">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="69">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
   <tile id="80">
    <properties>
     <property name="solid" value="true"/>
@@ -79,6 +89,16 @@
    </properties>
   </tile>
   <tile id="83">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="84">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="85">
    <properties>
     <property name="solid" value="true"/>
    </properties>
@@ -408,17 +428,19 @@
    </properties>
   </tile>
  </tileset>
- <layer name="Tile Layer 1" width="64" height="24">
+ <layer name="Tile Layer 1" width="48" height="16">
   <data encoding="base64" compression="zlib">
-   eJzt1ktOwlAUxvE+dAGF6rwiznlsAHADgBvQHehijCswbsP32PfYBzr2gU79N+lNLpUCvSGcmvYkP1La5vTcfKXFtfJbNsrSQwiWh4r0EIIVYEN6CMGqWkX+Rf75rSL/Iv8i//zWf8r/HBe4nGPPafmH/4+dGHeO15+laqjjDvd4mHBuA80Uvafl741RStHftA607RbaGOAVb9jGTnR8Xzu3g80U1wnzX7VkctXLjq6v7rEjbbuLHob4xg92sRcdP9TO7WPL+nvPJgnzX7EWl2tSjbvPFiErz/9AUBae/1VBKn8fx/wQT3CKM9tsLSY9pPP3I1fMe40b3Bqu36SHdP5q/Y/M+4RnvMw4u8eDtIQyfAwMemQl/3fm/cAnvmKzt/jeRie2P2DNa6hgHcMJPZJKMn/1/g/ZfDhwseSMviu7rKWHvj26v8ZHHQ00saz1SPMelqLe/5Ik8/8FVrRdKw==
+   eJztlctNw0AQhtcODVgRuVvIaYDAPQlwJwHupINwQJyhB0QFEW3wKoBHAzwa4FEAn5UdsRnZZNEi7cW/9Hk1o1+e32PJNqZRTLViBwhQAu3YIQKUwVrsEAHKoRs7RIAK0+w/ppr9x9Vf9r8Bm4He8nudmp9/zhWNa7iB22TRe0g9UT2tuv3L/Duntw07qlcn8WplFvnn3JPvAR7hSWWdUh/ZXp9zAEPlqdt/1fx9OKjwrkPP05tbZOYzeV7gFd5UtjPq02T+vnY5RzC2tVC3f5l/7vT6MKjwDmHLqS9+8RYWmflOng/4hC+VP/OgvFfHLD5TyRj2YGbrk3IHMLL1sdMXr/QvlVfvK3dmJlxSaMFKWu1dxqrns/4Hsn+fmYUn33kvLC8=
   </data>
  </layer>
- <objectgroup name="Object Layer 1" width="64" height="24">
-  <object type="player_spawn" x="1024" y="2816" width="128" height="128"/>
-  <object type="grower" x="3456" y="2816" width="128" height="128"/>
-  <object type="grower" x="1408" y="1536" width="128" height="128"/>
-  <object type="door" x="7168" y="1792" width="128" height="128"/>
-  <object type="shrinker" x="7680" y="1792" width="128" height="128"/>
-  <object type="shrinker" x="4224" y="1792" width="128" height="128"/>
+ <objectgroup name="Object Layer 1" width="48" height="16">
+  <object type="player_spawn" x="256" y="1664" width="256" height="256"/>
+  <object type="door" x="5632" y="1408" width="256" height="256"/>
+  <object type="shrinker" x="1024" y="1792" width="128" height="128"/>
+  <object type="shrinker" x="2176" y="1536" width="128" height="128"/>
+  <object type="shrinker" x="3584" y="1280" width="128" height="128"/>
+  <object type="shrinker" x="3840" y="1792" width="128" height="128"/>
+  <object type="shrinker" x="2944" y="1792" width="128" height="128"/>
+  <object type="shrinker" x="4864" y="1280" width="128" height="128"/>
  </objectgroup>
 </map>

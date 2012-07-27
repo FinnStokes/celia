@@ -1,18 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="15" height="8" tilewidth="128" tileheight="128">
+<map version="1.0" orientation="orthogonal" width="50" height="50" tilewidth="128" tileheight="128">
  <properties>
-  <property name="credits" value="true"/>
-  <property name="parallax1" value="EndScreen-Credits.jpg"/>
+  <property name="bgm" value="ost/hedgemaze.ogg"/>
+  <property name="parallax1" value="Background_Maze_Layer1.png"/>
+  <property name="parallax2" value="Background_Maze_Layer2.png"/>
+  <property name="parallax3" value="Background_Maze_Layer3.png"/>
+  <property name="wrap" value="true"/>
  </properties>
- <tileset firstgid="1" name="EndScreen-Credits" tilewidth="128" tileheight="128">
-  <image source="EndScreen-Credits.jpg" width="1920" height="1080"/>
+ <tileset firstgid="1" name="default" tilewidth="128" tileheight="128">
+  <image source="HedgeMaze.png" width="1152" height="640"/>
+  <tile id="15">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="16">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="31">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="32">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="35">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="37">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="38">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="39">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="40">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
  </tileset>
- <layer name="Tile Layer 2" width="15" height="8">
+ <layer name="Tile Layer 2" width="50" height="50">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFwxkAAAHgAAE=
+   eJztWYlqwzAMze5kZ9ud0B0dhEH+/wenQAWasC4fXQt9IFrH9pNfGkevSdfVwWS0W82tjaOOo44WOOqoo2OqGBZvREdJ7paI6MhFX4lHg1fHlZOPr/kHYrn9pMEh8feOMTMsHcP2+yKxFrom/M7XbPHiXImf8vExlMPSsTLGTkpfCW9NjrlvzdrSXo7q4LxReDlwjaPCRa/XqI6RtaNIcXjvl/zapderdT6sWhBFyb20Vf3IrVOtMdhD/iD6+6AO7T6cW7MoJ91/0j2YHs/VsVA46f2aQ6offK+MCY45b8/a2jpnnECcQpxBnCd0UA5pj/Jj2l72YJ67VPhTua8hbiBuIe4c/LxNtV5AXBp5PaDzB4MP+x4hniCeIV5If+p6sK7Ne4gHI68HdP7K4MO+d4gPiE+IL2WNVr4ZrxBvzrle3rXBN/dpe9Grg943NxDfzrkWL2KswOfJV+rhJF6vP62Vr9TDSby55yfHR3j9V4738Hrn1NzWiOjQvLPGtU86PGMPUUfK45Xo4HyaT4zkToHWBfRjHi4th/TfPfVsIyd3ai3Svra8j6f2RxH12J5xlvfR6vs+6ajlfSKoqQPP6aar430ikHx+dJ50bFfgPgmPRWtD75jTEtwn0ePSOU/1LYXxuwL3Sbwv4r1y/V+tsHzSvmNinwisY4cCqoPWdaxjEqx3J9YzM++7F+/cSfiOdSwF7d2G5oUi8z3P1TQdvI5J73iiwDzouUr+v/F1p9qtkFtXPWNLnydGgHm0fXMov4f1rjGqY2Dt/wL/LxnV0eJZVg5o7kUX19HiWVYOSq5x7kFydPwCIFJUtQ==
   </data>
  </layer>
- <objectgroup name="Object Layer 1" width="15" height="8">
-  <object type="player_spawn" x="640" y="640" width="128" height="128"/>
+ <objectgroup name="Object Layer 1" width="50" height="50">
+  <object type="player_spawn" x="4992" y="1024" width="128" height="128"/>
+  <object type="grower" x="5760" y="2048" width="128" height="128"/>
+  <object type="grower" x="1920" y="2688" width="128" height="128"/>
+  <object type="grower" x="1920" y="1152" width="128" height="128"/>
+  <object type="grower" x="512" y="5248" width="128" height="128"/>
+  <object type="shrinker" x="2560" y="6144" width="128" height="128"/>
+  <object type="door" x="2304" y="3584" width="512" height="512"/>
+  <object type="shrinker" x="896" y="2048" width="128" height="128"/>
  </objectgroup>
 </map>
