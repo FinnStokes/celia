@@ -266,9 +266,15 @@ local previousLevel = function ()
 end
 
 local spawn = gauge.entity.getList({type="player_spawn"})[1]
+local spawnPos = function()
+  local position = spawn.getPosition()
+  position.x = position.x + spawn.width()/2
+  position.y = position.y + spawn.height()
+  return position
+end
 local player = gauge.entity.new({
   type="player",
-  position=spawn.getPosition(),
+  position=spawnPos(),
 })
 gauge.entity.scale = gauge.entity.scale * 128 / spawn.height()
 local camera = gauge.state.get().camera
@@ -410,7 +416,7 @@ gauge.event.subscribe("input", function (input)
     spawn = gauge.entity.getList({type="player_spawn"})[1]
     player = gauge.entity.new({
       type="player",
-      position=spawn.getPosition(),
+      position=spawnPos(),
     })
     gauge.entity.scale = gauge.entity.scale * 128 / spawn.height()
     local camera = gauge.state.get().camera
