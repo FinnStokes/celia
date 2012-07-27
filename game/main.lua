@@ -326,7 +326,7 @@ gauge.event.subscribe("entityCollision",
       if entities[2].type == "grower" and scale > 1 / 5  then
         tween.stop(scaleTween)
         scale = scale/2
-        scaleTween = tween(1,gauge.entity,{scale = scale},'linear',endScale)
+        scaleTween = tween(0.5,gauge.entity,{scale = scale},'linear',endScale)
         entities[2].delete = true
         growing = true
         shrinking = false
@@ -336,7 +336,7 @@ gauge.event.subscribe("entityCollision",
       if entities[2].type == "shrinker" and scale < 1 then
         tween.stop(scaleTween)
         scale = scale*2
-        scaleTween = tween(1,gauge.entity,{scale = scale},'linear',endScale)
+        scaleTween = tween(0.5,gauge.entity,{scale = scale},'linear',endScale)
         entities[2].delete = true
         growing = false
         shrinking = true
@@ -376,7 +376,7 @@ gauge.event.subscribe("entityStuck",
   function (entity)
     if entity == player and growing then
       tween.stop(scaleTween)
-      scale = 1/(1/scale - 1)
+      scale = scale*2
       scaleTween = tween(0.5, gauge.entity,{scale = scale},'linear',endScale)
       growing = false
       shrinking = true
