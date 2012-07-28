@@ -11,7 +11,7 @@ return {
     ["parallax1"] = "Background_PlayRoom_Layer1.png",
     ["parallax2"] = "Background_PlayRoom_Layer2.png",
     ["parallax3"] = "Background_PlayRoom_Layer3.png",
-    ["wrap"] = "true"
+    
   },
   tilesets = {
     {
