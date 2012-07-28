@@ -261,6 +261,12 @@ local gotoLevel = function (x)
   })
 end
 gotoLevel(1)
+local nextLevel = function ()
+  level = level + 1
+  gauge.event.notify("loadMap", {
+    file = "game/" .. level .. ".lua"
+  })
+end
 
 local spawn = gauge.entity.getList({type="player_spawn"})[1]
 local spawnPos = function()
@@ -313,6 +319,9 @@ gauge.event.subscribe("input",
     end
     if input.actions.stop then
       player.velocity({x = 0})
+    end
+    if input.actions.nextLevel then
+      nextLevel()
     end
     if input.actions.firstLevel then
       gotoLevel(1)
