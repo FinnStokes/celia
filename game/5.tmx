@@ -7,7 +7,7 @@
   <property name="parallax3" value="Background_TeaParty_Layer3.png"/>
  </properties>
  <tileset firstgid="1" name="TeaParty3" tilewidth="128" tileheight="128">
-  <image source="TeaParty3.png" width="2048" height="2304"/>
+  <image source="TeaParty3.png" width="2048" height="2048"/>
   <tile id="16">
    <properties>
     <property name="solid" value="true"/>
@@ -33,6 +33,21 @@
     <property name="solid" value="true"/>
    </properties>
   </tile>
+  <tile id="23">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="24">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="25">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
   <tile id="32">
    <properties>
     <property name="solid" value="true"/>
@@ -54,6 +69,16 @@
    </properties>
   </tile>
   <tile id="37">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="55">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="56">
    <properties>
     <property name="solid" value="true"/>
    </properties>
@@ -103,6 +128,21 @@
     <property name="solid" value="true"/>
    </properties>
   </tile>
+  <tile id="71">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="72">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="73">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
   <tile id="80">
    <properties>
     <property name="solid" value="true"/>
@@ -133,27 +173,12 @@
     <property name="solid" value="true"/>
    </properties>
   </tile>
-  <tile id="89">
-   <properties>
-    <property name="solid" value="true"/>
-   </properties>
-  </tile>
-  <tile id="90">
+  <tile id="104">
    <properties>
     <property name="solid" value="true"/>
    </properties>
   </tile>
   <tile id="105">
-   <properties>
-    <property name="solid" value="true"/>
-   </properties>
-  </tile>
-  <tile id="106">
-   <properties>
-    <property name="solid" value="true"/>
-   </properties>
-  </tile>
-  <tile id="107">
    <properties>
     <property name="solid" value="true"/>
    </properties>
@@ -168,12 +193,12 @@
     <property name="solid" value="true"/>
    </properties>
   </tile>
-  <tile id="138">
+  <tile id="120">
    <properties>
     <property name="solid" value="true"/>
    </properties>
   </tile>
-  <tile id="139">
+  <tile id="121">
    <properties>
     <property name="solid" value="true"/>
    </properties>
@@ -188,12 +213,12 @@
     <property name="solid" value="true"/>
    </properties>
   </tile>
-  <tile id="154">
+  <tile id="152">
    <properties>
     <property name="solid" value="true"/>
    </properties>
   </tile>
-  <tile id="155">
+  <tile id="153">
    <properties>
     <property name="solid" value="true"/>
    </properties>
@@ -208,12 +233,22 @@
     <property name="solid" value="true"/>
    </properties>
   </tile>
-  <tile id="186">
+  <tile id="168">
    <properties>
     <property name="solid" value="true"/>
    </properties>
   </tile>
-  <tile id="187">
+  <tile id="169">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="184">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="185">
    <properties>
     <property name="solid" value="true"/>
    </properties>
@@ -228,12 +263,12 @@
     <property name="solid" value="true"/>
    </properties>
   </tile>
-  <tile id="202">
+  <tile id="200">
    <properties>
     <property name="solid" value="true"/>
    </properties>
   </tile>
-  <tile id="203">
+  <tile id="201">
    <properties>
     <property name="solid" value="true"/>
    </properties>
@@ -244,16 +279,6 @@
    </properties>
   </tile>
   <tile id="211">
-   <properties>
-    <property name="solid" value="true"/>
-   </properties>
-  </tile>
-  <tile id="218">
-   <properties>
-    <property name="solid" value="true"/>
-   </properties>
-  </tile>
-  <tile id="219">
    <properties>
     <property name="solid" value="true"/>
    </properties>
@@ -278,12 +303,17 @@
     <property name="solid" value="true"/>
    </properties>
   </tile>
-  <tile id="234">
+  <tile id="232">
    <properties>
     <property name="solid" value="true"/>
    </properties>
   </tile>
-  <tile id="235">
+  <tile id="233">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="234">
    <properties>
     <property name="solid" value="true"/>
    </properties>
@@ -308,17 +338,17 @@
     <property name="solid" value="true"/>
    </properties>
   </tile>
-  <tile id="266">
+  <tile id="248">
    <properties>
     <property name="solid" value="true"/>
    </properties>
   </tile>
-  <tile id="267">
+  <tile id="249">
    <properties>
     <property name="solid" value="true"/>
    </properties>
   </tile>
-  <tile id="268">
+  <tile id="250">
    <properties>
     <property name="solid" value="true"/>
    </properties>
@@ -343,25 +373,10 @@
     <property name="solid" value="true"/>
    </properties>
   </tile>
-  <tile id="282">
-   <properties>
-    <property name="solid" value="true"/>
-   </properties>
-  </tile>
-  <tile id="283">
-   <properties>
-    <property name="solid" value="true"/>
-   </properties>
-  </tile>
-  <tile id="284">
-   <properties>
-    <property name="solid" value="true"/>
-   </properties>
-  </tile>
  </tileset>
  <layer name="Tile Layer 1" width="48" height="16">
   <data encoding="base64" compression="zlib">
-   eJzt1TluwkAUxvFJOIGFQo+QU0A6CAWkyVpAFZYUyRGgRjlJxAlQlOUCWS6Q5QIsF8hyh/ytzFPQyMaDJtI0ftJP8ow++Y2fJVuprHxWzvcBHGoDed+HcKgAJd+HcKgitn0fwqFClc3fZ2Xz91vrzH8Xdcds9L3eVH//nBvc4g73RraFdkqfpPnH9T/GScr90rKBJv+cBzziCc9G9hwX+rqMCnaMTNL84/r3cRaTraJmmS1q0vMFr3jDu5EdYqB+31cDTezptUia/yGOcLW0t4+DFVmp8YpsqEnPKWaYY2FkAwvRvQrGM0W66GGi15c4RUevR0v7kpX9ayNrzkvmH60/8IkvfCdk02xZPut/kPnb9Awt/QCoVSuK
+   eJzt1U9LAkEYx/EpL9ltkSS9SWzouZI6minUTStfiq9B6x6Vd9F8A/55A5Zvyu/iDC3DbDsywVz2gQ/sDD/2mX0WdoXIymflfB/AoQ5Q8H0Ihwpw5vsQDlXBue9DOFQosvn7rGz+fmuf+V+h7piNvteH4vefM8AQL3jVslXUUvokzd/Uv4V2yv3SsoGk/jnv+MAnRlr2Gjfy+gh5HGuZpPmb+j+jZ8he4NIyW5FUzwmm+MJMyz7gXuze1ylKKMu1kjT/Ju7wFttr4PaPrLDIhpLqOccCS6y0bGAhuldRe6bII54wju110JXXfUM2vh/P6vNS84/Wa3zjB5uEbJoTy2f9D2r+Nj1DS1s6iyUg
   </data>
  </layer>
  <objectgroup name="Object Layer 1" width="48" height="16">
