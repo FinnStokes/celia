@@ -6,7 +6,7 @@
   <property name="parallax2" value="Background_TeaParty_Layer2.png"/>
   <property name="parallax3" value="Background_TeaParty_Layer3.png"/>
  </properties>
- <tileset firstgid="1" name="TeaParty3" tilewidth="128" tileheight="128">
+  <tileset firstgid="1" name="TeaParty3" tilewidth="128" tileheight="128">
   <image source="TeaParty3.png" width="2048" height="2048"/>
   <tile id="16">
    <properties>
@@ -349,26 +349,6 @@
    </properties>
   </tile>
   <tile id="250">
-   <properties>
-    <property name="solid" value="true"/>
-   </properties>
-  </tile>
-  <tile id="273">
-   <properties>
-    <property name="solid" value="true"/>
-   </properties>
-  </tile>
-  <tile id="275">
-   <properties>
-    <property name="solid" value="true"/>
-   </properties>
-  </tile>
-  <tile id="277">
-   <properties>
-    <property name="solid" value="true"/>
-   </properties>
-  </tile>
-  <tile id="279">
    <properties>
     <property name="solid" value="true"/>
    </properties>

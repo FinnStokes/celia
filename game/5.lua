@@ -438,30 +438,6 @@ return {
           properties = {
             ["solid"] = "true"
           }
-        },
-        {
-          id = 273,
-          properties = {
-            ["solid"] = "true"
-          }
-        },
-        {
-          id = 275,
-          properties = {
-            ["solid"] = "true"
-          }
-        },
-        {
-          id = 277,
-          properties = {
-            ["solid"] = "true"
-          }
-        },
-        {
-          id = 279,
-          properties = {
-            ["solid"] = "true"
-          }
         }
       }
     }
