@@ -78,7 +78,7 @@ context.map = function (raw_in, map_in)
   end
   
   -- Map Switch
-  if raw_in.key.pressed["8"] then
+  if raw_in.key.pressed["escape"] then
     map_in.actions["firstLevel"] = true
   end
   if raw_in.key.pressed["9"] then
@@ -86,6 +86,9 @@ context.map = function (raw_in, map_in)
   end
   if raw_in.key.pressed["0"] then
     map_in.actions["creditsLevel"] = true
+  end
+  if raw_in.key.pressed["="] then
+    map_in.actions["nextLevel"] = true
   end
   
   return map_in
@@ -175,7 +178,7 @@ gauge.entity.registerType("player", {
       end
     end
     if map and map.properties and map.properties().credits then
-      self.position = { x = 64, y = 128 }
+      self.position = { x = 112, y = 48 }
       self.velocity = { x = 0, y = 0 }
       self.acceleration = { x = 0, y = 0 }
       self.animation = "falling"
