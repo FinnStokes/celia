@@ -78,18 +78,18 @@ context.map = function (raw_in, map_in)
   end
   
   -- Map Switch
-  if raw_in.key.pressed["escape"] then
-    map_in.actions["firstLevel"] = true
-  end
-  if raw_in.key.pressed["9"] then
-    map_in.actions["lastLevel"] = true
-  end
-  if raw_in.key.pressed["0"] then
-    map_in.actions["creditsLevel"] = true
-  end
-  if raw_in.key.pressed["="] then
-    map_in.actions["nextLevel"] = true
-  end
+  -- if raw_in.key.pressed["escape"] then
+  --   map_in.actions["firstLevel"] = true
+  -- end
+  -- if raw_in.key.pressed["9"] then
+  --   map_in.actions["lastLevel"] = true
+  -- end
+  -- if raw_in.key.pressed["0"] then
+  --   map_in.actions["creditsLevel"] = true
+  -- end
+  -- if raw_in.key.pressed["="] then
+  --   map_in.actions["nextLevel"] = true
+  -- end
   
   return map_in
 end

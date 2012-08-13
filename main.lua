@@ -23,7 +23,7 @@ local loading = false
 love.load = function ()
   local context = gauge.input.context.new({active = true})
   context.map = function (raw_in, map_in)
-    if raw_in.key.pressed["-"] then
+    if raw_in.key.pressed["escape"] then
       map_in.actions["quit"] = true
     end
     return map_in
